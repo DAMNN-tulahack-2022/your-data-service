@@ -1,0 +1,19 @@
+version: v1
+plugins:
+  - name: go
+    out: ./proto
+    opt:
+      - paths=source_relative
+  - name: go-grpc
+    out: ./proto
+    opt:
+      - paths=source_relative
+  - name: grpc-gateway
+    out: ./proto
+    opt:
+      - paths=source_relative
+      - allow_delete_body=true
+  - name: openapiv2
+    out: ../doc
+    opt:
+      - allow_delete_body=true

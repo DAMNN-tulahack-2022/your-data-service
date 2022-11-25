@@ -1,0 +1,13 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "dammn-services/api/supadmin/proto";
+
+enum ClassEnum {
+    default = 0;
+    usual = 1;
+    rare = 2;
+    legend = 3;
+    epic = 4;
+    mega = 5; 
+}
