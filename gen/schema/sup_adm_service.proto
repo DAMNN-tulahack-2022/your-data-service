@@ -145,6 +145,20 @@ message MatrixRemoveResponse {
     uint32 id = 1;
 }
 
+message ProjectAddRequest {
+    message Params {
+        uint32 id  = 1;
+        string title = 2;
+        string description = 3;
+        uint32 teamleadId = 4;
+        repeated uint32 skillsIds = 5;
+        repeated uint32 userIds = 6;
+        uint32 experience = 7;
+    }
+    
+    Params params = 1; 
+}
+
 service YourAdminService {
     rpc SkillsList(google.protobuf.Empty) returns (SkillsListResponse) {
         option (google.api.http) = {
@@ -256,6 +270,13 @@ service YourAdminService {
     rpc DataLib(google.protobuf.Empty) returns (DataLibResponse) {
         option (google.api.http) = {
         get: "/data/lib"
+        };
+    }
+
+    rpc ProjectAdd(ProjectAddRequest) returns (Project) {
+        option (google.api.http) = {
+        post: "/data/projects/add"
+        body: "params"
         };
     }
 

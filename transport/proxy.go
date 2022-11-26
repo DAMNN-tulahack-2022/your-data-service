@@ -56,7 +56,7 @@ func (ap *AuthProxy) Run() error {
 		log.Panic(err)
 	}
 
-	if err := http.ListenAndServe(ap.config.ProxyPort, cors(mux)); err != nil {
+	if err := http.ListenAndServe(ap.config.DataProxyPort, cors(mux)); err != nil {
 		return err
 	}
 

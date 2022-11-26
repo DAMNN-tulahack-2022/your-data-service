@@ -70,8 +70,8 @@ message User {
     string firstName = 4;
     string lastName = 5;
     string middleName = 6;
-    string avatarUri = 7;
-    uint32 curentProjectId  = 8;
+    string avatarUrl = 7;
+    uint32 currentProjectId  = 8;
     repeated uint32 completedProjectIds = 9;
     repeated uint32 skillsIds = 10;
     string role = 11;

@@ -40,6 +40,7 @@ type YourAdminServiceClient interface {
 	GradeEdit(ctx context.Context, in *GradeEditRequest, opts ...grpc.CallOption) (*Grade, error)
 	GradeRemove(ctx context.Context, in *GradeRemoveRequest, opts ...grpc.CallOption) (*GradeRemoveResponse, error)
 	DataLib(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*DataLibResponse, error)
+	ProjectAdd(ctx context.Context, in *ProjectAddRequest, opts ...grpc.CallOption) (*Project, error)
 }
 
 type yourAdminServiceClient struct {
@@ -203,6 +204,15 @@ func (c *yourAdminServiceClient) DataLib(ctx context.Context, in *emptypb.Empty,
 	return out, nil
 }
 
+func (c *yourAdminServiceClient) ProjectAdd(ctx context.Context, in *ProjectAddRequest, opts ...grpc.CallOption) (*Project, error) {
+	out := new(Project)
+	err := c.cc.Invoke(ctx, "/proto.YourAdminService/ProjectAdd", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // YourAdminServiceServer is the server API for YourAdminService service.
 // All implementations must embed UnimplementedYourAdminServiceServer
 // for forward compatibility
@@ -224,6 +234,7 @@ type YourAdminServiceServer interface {
 	GradeEdit(context.Context, *GradeEditRequest) (*Grade, error)
 	GradeRemove(context.Context, *GradeRemoveRequest) (*GradeRemoveResponse, error)
 	DataLib(context.Context, *emptypb.Empty) (*DataLibResponse, error)
+	ProjectAdd(context.Context, *ProjectAddRequest) (*Project, error)
 	mustEmbedUnimplementedYourAdminServiceServer()
 }
 
@@ -281,6 +292,9 @@ func (UnimplementedYourAdminServiceServer) GradeRemove(context.Context, *GradeRe
 }
 func (UnimplementedYourAdminServiceServer) DataLib(context.Context, *emptypb.Empty) (*DataLibResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DataLib not implemented")
+}
+func (UnimplementedYourAdminServiceServer) ProjectAdd(context.Context, *ProjectAddRequest) (*Project, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ProjectAdd not implemented")
 }
 func (UnimplementedYourAdminServiceServer) mustEmbedUnimplementedYourAdminServiceServer() {}
 
@@ -601,6 +615,24 @@ func _YourAdminService_DataLib_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _YourAdminService_ProjectAdd_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ProjectAddRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(YourAdminServiceServer).ProjectAdd(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.YourAdminService/ProjectAdd",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(YourAdminServiceServer).ProjectAdd(ctx, req.(*ProjectAddRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // YourAdminService_ServiceDesc is the grpc.ServiceDesc for YourAdminService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -675,6 +707,10 @@ var YourAdminService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DataLib",
 			Handler:    _YourAdminService_DataLib_Handler,
+		},
+		{
+			MethodName: "ProjectAdd",
+			Handler:    _YourAdminService_ProjectAdd_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

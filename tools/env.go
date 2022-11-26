@@ -5,7 +5,7 @@ import (
 )
 
 type GenericEnvAppConfig struct {
-	ProxyPort            string `env:"PROXY_PORT"`
+	DataProxyPort            string `env:"DATA_PROXY_PORT"`
 	AuthFlowSault        string `env:"FLOW_SAULT"`
 	AdminPermissionSault string `env:"PERMISSION_SAULT"`
 
