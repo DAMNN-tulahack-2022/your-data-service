@@ -1,13 +1,263 @@
 syntax = "proto3";
 package proto;
 
-option go_package = "dammn-services/api/supadmin/proto";
+option go_package = "dammn-services/api/supadmin/proto"; 
 
-enum ClassEnum {
-    default = 0;
-    usual = 1;
-    rare = 2;
-    legend = 3;
-    epic = 4;
-    mega = 5; 
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+    host: "api.damnn-services.online";
+};
+
+import "entities.proto";
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/field_mask.proto";
+
+message SkillsListResponse {
+    repeated Skill skills = 1;
 }
+ 
+message SkillAddRequest {
+    message Params {
+        string label = 2;
+    }
+    
+    Params params = 1;
+}
+
+message SkillEditRequest {
+    message Params {
+        string label = 2;
+    }
+
+    uint32 id = 1;
+    Params params = 2;
+    google.protobuf.FieldMask updateMask = 3;
+}
+
+message SkillRemoveRequest {
+    uint32 id = 1;
+} 
+
+message SkillRemoveResponse {
+    uint32 id = 1;
+} 
+
+
+message VacanciesListResponse {
+    repeated Vacancy vacancies = 1;
+}   
+ 
+message VacancyAddRequest {
+    message Params {
+        string label = 2;
+    }
+    
+    Params params = 1;
+}
+
+message VacancyEditRequest {
+    message Params {
+        string label = 2;
+    }
+
+    uint32 id = 1;
+    Params params = 2;
+    google.protobuf.FieldMask updateMask = 3;
+}
+
+message VacancyRemoveRequest {
+    uint32 id = 1;
+} 
+
+message VacancyRemoveResponse {
+    uint32 id = 1;
+}
+
+
+
+message GradesListResponse {
+    repeated Grade grades = 1;
+}   
+ 
+message GradeAddRequest {
+    message Params {
+        string label = 2;
+        string description = 3;
+        uint32 experience = 4;
+        bool   needsApproval = 5;
+    }
+    
+    Params params = 1; 
+}
+
+message GradeEditRequest {
+    message Params {
+        string label = 2;
+        string description = 3;
+        uint32 experience = 4;
+        bool needsApproval = 5;
+    }
+
+    uint32 id = 1;
+    Params params = 2;
+    google.protobuf.FieldMask updateMask = 3;
+}
+
+message GradeRemoveRequest {
+    uint32 id = 1;
+} 
+
+message GradeRemoveResponse {
+    uint32 id = 1;
+}
+
+
+message MatrixListResponse {
+    repeated Matrix gradeProgresses = 1;
+} 
+
+message MatrixAddRequest {
+    message Params {
+        uint32 vacancyId  = 1;
+        repeated uint32 grades_ids = 2;
+    }
+    
+    Params params = 1; 
+}
+
+message MatrixEditRequest {
+    message Params {
+        uint32 vacancyId  = 1;
+        repeated uint32 grades_ids = 2;
+    }
+
+    uint32 id = 1;
+    Params params = 2;
+    google.protobuf.FieldMask updateMask = 3;
+}
+
+message MatrixRemoveRequest {
+    uint32 id = 1;
+} 
+
+message MatrixRemoveResponse {
+    uint32 id = 1;
+}
+
+service YourAdminService {
+    rpc SkillsList(google.protobuf.Empty) returns (SkillsListResponse) {
+        option (google.api.http) = {
+        get: "/data/skills"
+        };
+    }
+
+    rpc SkillAdd(SkillAddRequest) returns (Skill) {
+        option (google.api.http) = {
+        post: "/data/skills/add"
+        body: "params"
+        };
+    }
+
+    rpc SkillEdit(SkillEditRequest) returns (Skill) {
+        option (google.api.http) = {
+        patch: "/data/skills/edit"
+        body: "params"
+        };
+    }
+
+    rpc SkillRemove(SkillRemoveRequest) returns (SkillRemoveResponse) {
+        option (google.api.http) = {
+        delete: "/data/skills/{id}/remove"
+        };
+    }
+
+
+    rpc VacanciesList(google.protobuf.Empty) returns (VacanciesListResponse) {
+        option (google.api.http) = {
+        get: "/data/vacancies"
+        };
+    }
+
+    rpc VacancyAdd(VacancyAddRequest) returns (Vacancy) {
+        option (google.api.http) = {
+        post: "/data/vacancies/add"
+        body: "params"
+        };
+    }
+
+    rpc VacancyEdit(VacancyEditRequest) returns (Vacancy) {
+        option (google.api.http) = {
+        patch: "/data/vacancies/{id}/edit"
+        body: "params"
+        };
+    }
+
+    rpc VacancyRemove(VacancyRemoveRequest) returns (VacancyRemoveResponse) {
+        option (google.api.http) = {
+        delete: "/data/vacancies/{id}/remove"
+        };
+    }
+
+
+    rpc MatrixList(google.protobuf.Empty) returns (MatrixListResponse) {
+        option (google.api.http) = {
+        get: "/data/grade-progress"
+        };
+    }
+
+    rpc MatrixAdd(MatrixAddRequest) returns (Matrix) {
+        option (google.api.http) = {
+        post: "/data/grade-progress/add"
+        body: "params"
+        };
+    }
+
+    rpc MatrixEdit(MatrixEditRequest) returns (Matrix) {
+        option (google.api.http) = {
+        patch: "/data/grade-progress/{id}/edit"
+        body: "params"
+        };
+    }
+
+    rpc MatrixRemove(MatrixRemoveRequest) returns (MatrixRemoveResponse) {
+        option (google.api.http) = {
+        delete: "/data/grade-progress/{id}/remove"
+        };
+    }
+
+    rpc GradesList(google.protobuf.Empty) returns (GradesListResponse) {
+        option (google.api.http) = {
+        get: "/data/grades"
+        };
+    }
+
+    rpc GradeAdd(GradeAddRequest) returns (Grade) {
+        option (google.api.http) = {
+        post: "/data/grades/add"
+        body: "params"
+        };
+    }
+
+    rpc GradeEdit(GradeEditRequest) returns (Grade) {
+        option (google.api.http) = {
+        patch: "/data/grades/{id}/edit"
+        body: "params"
+        };
+    }
+
+    rpc GradeRemove(GradeRemoveRequest) returns (GradeRemoveResponse) {
+        option (google.api.http) = {
+        delete: "/data/grades/{id}/remove"
+        };
+    }
+
+
+    rpc DataLib(google.protobuf.Empty) returns (DataLibResponse) {
+        option (google.api.http) = {
+        get: "/data/lib"
+        };
+    }
+
+}
+

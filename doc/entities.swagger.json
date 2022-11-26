@@ -1,9 +1,10 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "auth_service.proto",
+    "title": "entities.proto",
     "version": "version not set"
   },
+  "host": "api.damnn-services.online",
   "consumes": [
     "application/json"
   ],

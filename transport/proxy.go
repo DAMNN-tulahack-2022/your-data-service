@@ -2,22 +2,30 @@ package transport
 
 import (
 	"context"
+	"log"
+	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
+
+	"github.com/damnn/tulahack/your-supadmin-service/gen/proto"
+	"github.com/damnn/tulahack/your-supadmin-service/tools"
+	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+	"google.golang.org/protobuf/encoding/protojson"
 )
 
 type (
 	gatewayProxy struct {
-		// interface
-		// proto.UnimplementedTasksAdminServiceServer
+		proto.UnimplementedYourAdminServiceServer
 	}
 
 	AuthProxy struct {
 		// login
 		// service supadmin.AuthorizationCore
 
-		proxy *gatewayProxy
+		log    *tools.YourLogger
+		proxy  *gatewayProxy
+		config *tools.GenericEnvAppConfig
 
 		// parent
 		ctx context.Context
@@ -26,36 +34,31 @@ type (
 	}
 )
 
-func NewAuthProxy(ctx context.Context /* service auth.AuthorizationCore */) *AuthProxy {
+func NewAuthProxy(ctx context.Context, log *tools.YourLogger, config *tools.GenericEnvAppConfig) *AuthProxy {
 	return &AuthProxy{
-		ctx: ctx,
-		// service: service,
-		proxy: &gatewayProxy{},
+		ctx:    ctx,
+		log:    log,
+		config: config,
+		sig:    make(chan os.Signal),
+		proxy:  &gatewayProxy{},
 	}
 }
 
 func (ap *AuthProxy) Run() error {
-	/* 	// rest api server init
-	   	mux := runtime.NewServeMux(
-	   		runtime.WithMarshalerOption(runtime.MIMEWildcard, &runtime.JSONPb{
-	   			MarshalOptions: protojson.MarshalOptions{EmitUnpopulated: true},
-	   		}),
-	   		runtime.WithRoutingErrorHandler(helpers.RoutingErrorsHandler),
-	   		runtime.WithErrorHandler(errorHandler),
-	   	)
+	// rest api server init
+	mux := runtime.NewServeMux(
+		runtime.WithMarshalerOption(runtime.MIMEWildcard, &runtime.JSONPb{
+			MarshalOptions: protojson.MarshalOptions{EmitUnpopulated: true},
+		}),
+	)
 
-	   	if err := proto.RegisterTasksAdminServiceHandlerServer(ctx, mux, adminServer); err != nil {
-	   		log.Panic(err)
-	   	} */
+	if err := proto.RegisterYourAdminServiceHandlerServer(ap.ctx, mux, ap.proxy); err != nil {
+		log.Panic(err)
+	}
 
-	/* 	if err := http.ListenAndServe(host, mux); err != nil {
+	if err := http.ListenAndServe(ap.config.ProxyPort, cors(mux)); err != nil {
 		return err
-	} */
-
-	return nil
-}
-
-func (ap *AuthProxy) Shotdown() error {
+	}
 
 	return nil
 }

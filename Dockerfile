@@ -3,6 +3,8 @@ FROM golang:1.18.3-alpine3.16 as build
 WORKDIR /usr/local/app
 COPY go.mod .
 COPY go.sum .
+COPY .env .
+
 RUN go mod download
 COPY . .
 
@@ -13,5 +15,6 @@ RUN sed -i 's/https\:\/\/dl-cdn.alpinelinux.org/http\:\/\/mirror.clarkson.edu/g'
 
 WORKDIR /usr/local/app
 COPY --from=build /usr/local/app/adm bin/adm
+COPY --from=build /usr/local/app/.env .env
 
 CMD bin/adm

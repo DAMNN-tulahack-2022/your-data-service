@@ -7,8 +7,12 @@
 package proto
 
 import (
+	_ "github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2/options"
+	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
+	fieldmaskpb "google.golang.org/protobuf/types/known/fieldmaskpb"
 	reflect "reflect"
 	sync "sync"
 )
@@ -20,77 +24,1700 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type ClassEnum int32
+type SkillsListResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
 
-const (
-	ClassEnum_default ClassEnum = 0
-	ClassEnum_usual   ClassEnum = 1
-	ClassEnum_rare    ClassEnum = 2
-	ClassEnum_legend  ClassEnum = 3
-	ClassEnum_epic    ClassEnum = 4
-	ClassEnum_mega    ClassEnum = 5
-)
+	Skills []*Skill `protobuf:"bytes,1,rep,name=skills,proto3" json:"skills,omitempty"`
+}
 
-// Enum value maps for ClassEnum.
-var (
-	ClassEnum_name = map[int32]string{
-		0: "default",
-		1: "usual",
-		2: "rare",
-		3: "legend",
-		4: "epic",
-		5: "mega",
+func (x *SkillsListResponse) Reset() {
+	*x = SkillsListResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_sup_adm_service_proto_msgTypes[0]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
 	}
-	ClassEnum_value = map[string]int32{
-		"default": 0,
-		"usual":   1,
-		"rare":    2,
-		"legend":  3,
-		"epic":    4,
-		"mega":    5,
+}
+
+func (x *SkillsListResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SkillsListResponse) ProtoMessage() {}
+
+func (x *SkillsListResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_sup_adm_service_proto_msgTypes[0]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
 	}
-)
-
-func (x ClassEnum) Enum() *ClassEnum {
-	p := new(ClassEnum)
-	*p = x
-	return p
+	return mi.MessageOf(x)
 }
 
-func (x ClassEnum) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
-
-func (ClassEnum) Descriptor() protoreflect.EnumDescriptor {
-	return file_sup_adm_service_proto_enumTypes[0].Descriptor()
-}
-
-func (ClassEnum) Type() protoreflect.EnumType {
-	return &file_sup_adm_service_proto_enumTypes[0]
-}
-
-func (x ClassEnum) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
-}
-
-// Deprecated: Use ClassEnum.Descriptor instead.
-func (ClassEnum) EnumDescriptor() ([]byte, []int) {
+// Deprecated: Use SkillsListResponse.ProtoReflect.Descriptor instead.
+func (*SkillsListResponse) Descriptor() ([]byte, []int) {
 	return file_sup_adm_service_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *SkillsListResponse) GetSkills() []*Skill {
+	if x != nil {
+		return x.Skills
+	}
+	return nil
+}
+
+type SkillAddRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Params *SkillAddRequest_Params `protobuf:"bytes,1,opt,name=params,proto3" json:"params,omitempty"`
+}
+
+func (x *SkillAddRequest) Reset() {
+	*x = SkillAddRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_sup_adm_service_proto_msgTypes[1]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SkillAddRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SkillAddRequest) ProtoMessage() {}
+
+func (x *SkillAddRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_sup_adm_service_proto_msgTypes[1]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SkillAddRequest.ProtoReflect.Descriptor instead.
+func (*SkillAddRequest) Descriptor() ([]byte, []int) {
+	return file_sup_adm_service_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *SkillAddRequest) GetParams() *SkillAddRequest_Params {
+	if x != nil {
+		return x.Params
+	}
+	return nil
+}
+
+type SkillEditRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id         uint32                   `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Params     *SkillEditRequest_Params `protobuf:"bytes,2,opt,name=params,proto3" json:"params,omitempty"`
+	UpdateMask *fieldmaskpb.FieldMask   `protobuf:"bytes,3,opt,name=updateMask,proto3" json:"updateMask,omitempty"`
+}
+
+func (x *SkillEditRequest) Reset() {
+	*x = SkillEditRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_sup_adm_service_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SkillEditRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SkillEditRequest) ProtoMessage() {}
+
+func (x *SkillEditRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_sup_adm_service_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SkillEditRequest.ProtoReflect.Descriptor instead.
+func (*SkillEditRequest) Descriptor() ([]byte, []int) {
+	return file_sup_adm_service_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *SkillEditRequest) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *SkillEditRequest) GetParams() *SkillEditRequest_Params {
+	if x != nil {
+		return x.Params
+	}
+	return nil
+}
+
+func (x *SkillEditRequest) GetUpdateMask() *fieldmaskpb.FieldMask {
+	if x != nil {
+		return x.UpdateMask
+	}
+	return nil
+}
+
+type SkillRemoveRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *SkillRemoveRequest) Reset() {
+	*x = SkillRemoveRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_sup_adm_service_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SkillRemoveRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SkillRemoveRequest) ProtoMessage() {}
+
+func (x *SkillRemoveRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_sup_adm_service_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SkillRemoveRequest.ProtoReflect.Descriptor instead.
+func (*SkillRemoveRequest) Descriptor() ([]byte, []int) {
+	return file_sup_adm_service_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *SkillRemoveRequest) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+type SkillRemoveResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *SkillRemoveResponse) Reset() {
+	*x = SkillRemoveResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_sup_adm_service_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SkillRemoveResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SkillRemoveResponse) ProtoMessage() {}
+
+func (x *SkillRemoveResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_sup_adm_service_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SkillRemoveResponse.ProtoReflect.Descriptor instead.
+func (*SkillRemoveResponse) Descriptor() ([]byte, []int) {
+	return file_sup_adm_service_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *SkillRemoveResponse) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+type VacanciesListResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Vacancies []*Vacancy `protobuf:"bytes,1,rep,name=vacancies,proto3" json:"vacancies,omitempty"`
+}
+
+func (x *VacanciesListResponse) Reset() {
+	*x = VacanciesListResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_sup_adm_service_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *VacanciesListResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*VacanciesListResponse) ProtoMessage() {}
+
+func (x *VacanciesListResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_sup_adm_service_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use VacanciesListResponse.ProtoReflect.Descriptor instead.
+func (*VacanciesListResponse) Descriptor() ([]byte, []int) {
+	return file_sup_adm_service_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *VacanciesListResponse) GetVacancies() []*Vacancy {
+	if x != nil {
+		return x.Vacancies
+	}
+	return nil
+}
+
+type VacancyAddRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Params *VacancyAddRequest_Params `protobuf:"bytes,1,opt,name=params,proto3" json:"params,omitempty"`
+}
+
+func (x *VacancyAddRequest) Reset() {
+	*x = VacancyAddRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_sup_adm_service_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *VacancyAddRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*VacancyAddRequest) ProtoMessage() {}
+
+func (x *VacancyAddRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_sup_adm_service_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use VacancyAddRequest.ProtoReflect.Descriptor instead.
+func (*VacancyAddRequest) Descriptor() ([]byte, []int) {
+	return file_sup_adm_service_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *VacancyAddRequest) GetParams() *VacancyAddRequest_Params {
+	if x != nil {
+		return x.Params
+	}
+	return nil
+}
+
+type VacancyEditRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id         uint32                     `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Params     *VacancyEditRequest_Params `protobuf:"bytes,2,opt,name=params,proto3" json:"params,omitempty"`
+	UpdateMask *fieldmaskpb.FieldMask     `protobuf:"bytes,3,opt,name=updateMask,proto3" json:"updateMask,omitempty"`
+}
+
+func (x *VacancyEditRequest) Reset() {
+	*x = VacancyEditRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_sup_adm_service_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *VacancyEditRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*VacancyEditRequest) ProtoMessage() {}
+
+func (x *VacancyEditRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_sup_adm_service_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use VacancyEditRequest.ProtoReflect.Descriptor instead.
+func (*VacancyEditRequest) Descriptor() ([]byte, []int) {
+	return file_sup_adm_service_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *VacancyEditRequest) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *VacancyEditRequest) GetParams() *VacancyEditRequest_Params {
+	if x != nil {
+		return x.Params
+	}
+	return nil
+}
+
+func (x *VacancyEditRequest) GetUpdateMask() *fieldmaskpb.FieldMask {
+	if x != nil {
+		return x.UpdateMask
+	}
+	return nil
+}
+
+type VacancyRemoveRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *VacancyRemoveRequest) Reset() {
+	*x = VacancyRemoveRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_sup_adm_service_proto_msgTypes[8]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *VacancyRemoveRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*VacancyRemoveRequest) ProtoMessage() {}
+
+func (x *VacancyRemoveRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_sup_adm_service_proto_msgTypes[8]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use VacancyRemoveRequest.ProtoReflect.Descriptor instead.
+func (*VacancyRemoveRequest) Descriptor() ([]byte, []int) {
+	return file_sup_adm_service_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *VacancyRemoveRequest) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+type VacancyRemoveResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *VacancyRemoveResponse) Reset() {
+	*x = VacancyRemoveResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_sup_adm_service_proto_msgTypes[9]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *VacancyRemoveResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*VacancyRemoveResponse) ProtoMessage() {}
+
+func (x *VacancyRemoveResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_sup_adm_service_proto_msgTypes[9]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use VacancyRemoveResponse.ProtoReflect.Descriptor instead.
+func (*VacancyRemoveResponse) Descriptor() ([]byte, []int) {
+	return file_sup_adm_service_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *VacancyRemoveResponse) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+type GradesListResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Grades []*Grade `protobuf:"bytes,1,rep,name=grades,proto3" json:"grades,omitempty"`
+}
+
+func (x *GradesListResponse) Reset() {
+	*x = GradesListResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_sup_adm_service_proto_msgTypes[10]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GradesListResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GradesListResponse) ProtoMessage() {}
+
+func (x *GradesListResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_sup_adm_service_proto_msgTypes[10]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GradesListResponse.ProtoReflect.Descriptor instead.
+func (*GradesListResponse) Descriptor() ([]byte, []int) {
+	return file_sup_adm_service_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *GradesListResponse) GetGrades() []*Grade {
+	if x != nil {
+		return x.Grades
+	}
+	return nil
+}
+
+type GradeAddRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Params *GradeAddRequest_Params `protobuf:"bytes,1,opt,name=params,proto3" json:"params,omitempty"`
+}
+
+func (x *GradeAddRequest) Reset() {
+	*x = GradeAddRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_sup_adm_service_proto_msgTypes[11]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GradeAddRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GradeAddRequest) ProtoMessage() {}
+
+func (x *GradeAddRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_sup_adm_service_proto_msgTypes[11]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GradeAddRequest.ProtoReflect.Descriptor instead.
+func (*GradeAddRequest) Descriptor() ([]byte, []int) {
+	return file_sup_adm_service_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *GradeAddRequest) GetParams() *GradeAddRequest_Params {
+	if x != nil {
+		return x.Params
+	}
+	return nil
+}
+
+type GradeEditRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id         uint32                   `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Params     *GradeEditRequest_Params `protobuf:"bytes,2,opt,name=params,proto3" json:"params,omitempty"`
+	UpdateMask *fieldmaskpb.FieldMask   `protobuf:"bytes,3,opt,name=updateMask,proto3" json:"updateMask,omitempty"`
+}
+
+func (x *GradeEditRequest) Reset() {
+	*x = GradeEditRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_sup_adm_service_proto_msgTypes[12]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GradeEditRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GradeEditRequest) ProtoMessage() {}
+
+func (x *GradeEditRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_sup_adm_service_proto_msgTypes[12]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GradeEditRequest.ProtoReflect.Descriptor instead.
+func (*GradeEditRequest) Descriptor() ([]byte, []int) {
+	return file_sup_adm_service_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *GradeEditRequest) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *GradeEditRequest) GetParams() *GradeEditRequest_Params {
+	if x != nil {
+		return x.Params
+	}
+	return nil
+}
+
+func (x *GradeEditRequest) GetUpdateMask() *fieldmaskpb.FieldMask {
+	if x != nil {
+		return x.UpdateMask
+	}
+	return nil
+}
+
+type GradeRemoveRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *GradeRemoveRequest) Reset() {
+	*x = GradeRemoveRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_sup_adm_service_proto_msgTypes[13]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GradeRemoveRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GradeRemoveRequest) ProtoMessage() {}
+
+func (x *GradeRemoveRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_sup_adm_service_proto_msgTypes[13]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GradeRemoveRequest.ProtoReflect.Descriptor instead.
+func (*GradeRemoveRequest) Descriptor() ([]byte, []int) {
+	return file_sup_adm_service_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *GradeRemoveRequest) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+type GradeRemoveResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *GradeRemoveResponse) Reset() {
+	*x = GradeRemoveResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_sup_adm_service_proto_msgTypes[14]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GradeRemoveResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GradeRemoveResponse) ProtoMessage() {}
+
+func (x *GradeRemoveResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_sup_adm_service_proto_msgTypes[14]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GradeRemoveResponse.ProtoReflect.Descriptor instead.
+func (*GradeRemoveResponse) Descriptor() ([]byte, []int) {
+	return file_sup_adm_service_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *GradeRemoveResponse) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+type MatrixListResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	GradeProgresses []*Matrix `protobuf:"bytes,1,rep,name=gradeProgresses,proto3" json:"gradeProgresses,omitempty"`
+}
+
+func (x *MatrixListResponse) Reset() {
+	*x = MatrixListResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_sup_adm_service_proto_msgTypes[15]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *MatrixListResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MatrixListResponse) ProtoMessage() {}
+
+func (x *MatrixListResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_sup_adm_service_proto_msgTypes[15]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MatrixListResponse.ProtoReflect.Descriptor instead.
+func (*MatrixListResponse) Descriptor() ([]byte, []int) {
+	return file_sup_adm_service_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *MatrixListResponse) GetGradeProgresses() []*Matrix {
+	if x != nil {
+		return x.GradeProgresses
+	}
+	return nil
+}
+
+type MatrixAddRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Params *MatrixAddRequest_Params `protobuf:"bytes,1,opt,name=params,proto3" json:"params,omitempty"`
+}
+
+func (x *MatrixAddRequest) Reset() {
+	*x = MatrixAddRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_sup_adm_service_proto_msgTypes[16]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *MatrixAddRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MatrixAddRequest) ProtoMessage() {}
+
+func (x *MatrixAddRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_sup_adm_service_proto_msgTypes[16]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MatrixAddRequest.ProtoReflect.Descriptor instead.
+func (*MatrixAddRequest) Descriptor() ([]byte, []int) {
+	return file_sup_adm_service_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *MatrixAddRequest) GetParams() *MatrixAddRequest_Params {
+	if x != nil {
+		return x.Params
+	}
+	return nil
+}
+
+type MatrixEditRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id         uint32                    `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Params     *MatrixEditRequest_Params `protobuf:"bytes,2,opt,name=params,proto3" json:"params,omitempty"`
+	UpdateMask *fieldmaskpb.FieldMask    `protobuf:"bytes,3,opt,name=updateMask,proto3" json:"updateMask,omitempty"`
+}
+
+func (x *MatrixEditRequest) Reset() {
+	*x = MatrixEditRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_sup_adm_service_proto_msgTypes[17]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *MatrixEditRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MatrixEditRequest) ProtoMessage() {}
+
+func (x *MatrixEditRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_sup_adm_service_proto_msgTypes[17]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MatrixEditRequest.ProtoReflect.Descriptor instead.
+func (*MatrixEditRequest) Descriptor() ([]byte, []int) {
+	return file_sup_adm_service_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *MatrixEditRequest) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *MatrixEditRequest) GetParams() *MatrixEditRequest_Params {
+	if x != nil {
+		return x.Params
+	}
+	return nil
+}
+
+func (x *MatrixEditRequest) GetUpdateMask() *fieldmaskpb.FieldMask {
+	if x != nil {
+		return x.UpdateMask
+	}
+	return nil
+}
+
+type MatrixRemoveRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *MatrixRemoveRequest) Reset() {
+	*x = MatrixRemoveRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_sup_adm_service_proto_msgTypes[18]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *MatrixRemoveRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MatrixRemoveRequest) ProtoMessage() {}
+
+func (x *MatrixRemoveRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_sup_adm_service_proto_msgTypes[18]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MatrixRemoveRequest.ProtoReflect.Descriptor instead.
+func (*MatrixRemoveRequest) Descriptor() ([]byte, []int) {
+	return file_sup_adm_service_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *MatrixRemoveRequest) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+type MatrixRemoveResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *MatrixRemoveResponse) Reset() {
+	*x = MatrixRemoveResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_sup_adm_service_proto_msgTypes[19]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *MatrixRemoveResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MatrixRemoveResponse) ProtoMessage() {}
+
+func (x *MatrixRemoveResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_sup_adm_service_proto_msgTypes[19]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MatrixRemoveResponse.ProtoReflect.Descriptor instead.
+func (*MatrixRemoveResponse) Descriptor() ([]byte, []int) {
+	return file_sup_adm_service_proto_rawDescGZIP(), []int{19}
+}
+
+func (x *MatrixRemoveResponse) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+type SkillAddRequest_Params struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Label string `protobuf:"bytes,2,opt,name=label,proto3" json:"label,omitempty"`
+}
+
+func (x *SkillAddRequest_Params) Reset() {
+	*x = SkillAddRequest_Params{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_sup_adm_service_proto_msgTypes[20]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SkillAddRequest_Params) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SkillAddRequest_Params) ProtoMessage() {}
+
+func (x *SkillAddRequest_Params) ProtoReflect() protoreflect.Message {
+	mi := &file_sup_adm_service_proto_msgTypes[20]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SkillAddRequest_Params.ProtoReflect.Descriptor instead.
+func (*SkillAddRequest_Params) Descriptor() ([]byte, []int) {
+	return file_sup_adm_service_proto_rawDescGZIP(), []int{1, 0}
+}
+
+func (x *SkillAddRequest_Params) GetLabel() string {
+	if x != nil {
+		return x.Label
+	}
+	return ""
+}
+
+type SkillEditRequest_Params struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Label string `protobuf:"bytes,2,opt,name=label,proto3" json:"label,omitempty"`
+}
+
+func (x *SkillEditRequest_Params) Reset() {
+	*x = SkillEditRequest_Params{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_sup_adm_service_proto_msgTypes[21]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SkillEditRequest_Params) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SkillEditRequest_Params) ProtoMessage() {}
+
+func (x *SkillEditRequest_Params) ProtoReflect() protoreflect.Message {
+	mi := &file_sup_adm_service_proto_msgTypes[21]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SkillEditRequest_Params.ProtoReflect.Descriptor instead.
+func (*SkillEditRequest_Params) Descriptor() ([]byte, []int) {
+	return file_sup_adm_service_proto_rawDescGZIP(), []int{2, 0}
+}
+
+func (x *SkillEditRequest_Params) GetLabel() string {
+	if x != nil {
+		return x.Label
+	}
+	return ""
+}
+
+type VacancyAddRequest_Params struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Label string `protobuf:"bytes,2,opt,name=label,proto3" json:"label,omitempty"`
+}
+
+func (x *VacancyAddRequest_Params) Reset() {
+	*x = VacancyAddRequest_Params{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_sup_adm_service_proto_msgTypes[22]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *VacancyAddRequest_Params) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*VacancyAddRequest_Params) ProtoMessage() {}
+
+func (x *VacancyAddRequest_Params) ProtoReflect() protoreflect.Message {
+	mi := &file_sup_adm_service_proto_msgTypes[22]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use VacancyAddRequest_Params.ProtoReflect.Descriptor instead.
+func (*VacancyAddRequest_Params) Descriptor() ([]byte, []int) {
+	return file_sup_adm_service_proto_rawDescGZIP(), []int{6, 0}
+}
+
+func (x *VacancyAddRequest_Params) GetLabel() string {
+	if x != nil {
+		return x.Label
+	}
+	return ""
+}
+
+type VacancyEditRequest_Params struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Label string `protobuf:"bytes,2,opt,name=label,proto3" json:"label,omitempty"`
+}
+
+func (x *VacancyEditRequest_Params) Reset() {
+	*x = VacancyEditRequest_Params{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_sup_adm_service_proto_msgTypes[23]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *VacancyEditRequest_Params) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*VacancyEditRequest_Params) ProtoMessage() {}
+
+func (x *VacancyEditRequest_Params) ProtoReflect() protoreflect.Message {
+	mi := &file_sup_adm_service_proto_msgTypes[23]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use VacancyEditRequest_Params.ProtoReflect.Descriptor instead.
+func (*VacancyEditRequest_Params) Descriptor() ([]byte, []int) {
+	return file_sup_adm_service_proto_rawDescGZIP(), []int{7, 0}
+}
+
+func (x *VacancyEditRequest_Params) GetLabel() string {
+	if x != nil {
+		return x.Label
+	}
+	return ""
+}
+
+type GradeAddRequest_Params struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Label         string `protobuf:"bytes,2,opt,name=label,proto3" json:"label,omitempty"`
+	Description   string `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
+	Experience    uint32 `protobuf:"varint,4,opt,name=experience,proto3" json:"experience,omitempty"`
+	NeedsApproval bool   `protobuf:"varint,5,opt,name=needsApproval,proto3" json:"needsApproval,omitempty"`
+}
+
+func (x *GradeAddRequest_Params) Reset() {
+	*x = GradeAddRequest_Params{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_sup_adm_service_proto_msgTypes[24]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GradeAddRequest_Params) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GradeAddRequest_Params) ProtoMessage() {}
+
+func (x *GradeAddRequest_Params) ProtoReflect() protoreflect.Message {
+	mi := &file_sup_adm_service_proto_msgTypes[24]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GradeAddRequest_Params.ProtoReflect.Descriptor instead.
+func (*GradeAddRequest_Params) Descriptor() ([]byte, []int) {
+	return file_sup_adm_service_proto_rawDescGZIP(), []int{11, 0}
+}
+
+func (x *GradeAddRequest_Params) GetLabel() string {
+	if x != nil {
+		return x.Label
+	}
+	return ""
+}
+
+func (x *GradeAddRequest_Params) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *GradeAddRequest_Params) GetExperience() uint32 {
+	if x != nil {
+		return x.Experience
+	}
+	return 0
+}
+
+func (x *GradeAddRequest_Params) GetNeedsApproval() bool {
+	if x != nil {
+		return x.NeedsApproval
+	}
+	return false
+}
+
+type GradeEditRequest_Params struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Label         string `protobuf:"bytes,2,opt,name=label,proto3" json:"label,omitempty"`
+	Description   string `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
+	Experience    uint32 `protobuf:"varint,4,opt,name=experience,proto3" json:"experience,omitempty"`
+	NeedsApproval bool   `protobuf:"varint,5,opt,name=needsApproval,proto3" json:"needsApproval,omitempty"`
+}
+
+func (x *GradeEditRequest_Params) Reset() {
+	*x = GradeEditRequest_Params{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_sup_adm_service_proto_msgTypes[25]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GradeEditRequest_Params) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GradeEditRequest_Params) ProtoMessage() {}
+
+func (x *GradeEditRequest_Params) ProtoReflect() protoreflect.Message {
+	mi := &file_sup_adm_service_proto_msgTypes[25]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GradeEditRequest_Params.ProtoReflect.Descriptor instead.
+func (*GradeEditRequest_Params) Descriptor() ([]byte, []int) {
+	return file_sup_adm_service_proto_rawDescGZIP(), []int{12, 0}
+}
+
+func (x *GradeEditRequest_Params) GetLabel() string {
+	if x != nil {
+		return x.Label
+	}
+	return ""
+}
+
+func (x *GradeEditRequest_Params) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *GradeEditRequest_Params) GetExperience() uint32 {
+	if x != nil {
+		return x.Experience
+	}
+	return 0
+}
+
+func (x *GradeEditRequest_Params) GetNeedsApproval() bool {
+	if x != nil {
+		return x.NeedsApproval
+	}
+	return false
+}
+
+type MatrixAddRequest_Params struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	VacancyId uint32   `protobuf:"varint,1,opt,name=vacancyId,proto3" json:"vacancyId,omitempty"`
+	GradesIds []uint32 `protobuf:"varint,2,rep,packed,name=grades_ids,json=gradesIds,proto3" json:"grades_ids,omitempty"`
+}
+
+func (x *MatrixAddRequest_Params) Reset() {
+	*x = MatrixAddRequest_Params{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_sup_adm_service_proto_msgTypes[26]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *MatrixAddRequest_Params) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MatrixAddRequest_Params) ProtoMessage() {}
+
+func (x *MatrixAddRequest_Params) ProtoReflect() protoreflect.Message {
+	mi := &file_sup_adm_service_proto_msgTypes[26]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MatrixAddRequest_Params.ProtoReflect.Descriptor instead.
+func (*MatrixAddRequest_Params) Descriptor() ([]byte, []int) {
+	return file_sup_adm_service_proto_rawDescGZIP(), []int{16, 0}
+}
+
+func (x *MatrixAddRequest_Params) GetVacancyId() uint32 {
+	if x != nil {
+		return x.VacancyId
+	}
+	return 0
+}
+
+func (x *MatrixAddRequest_Params) GetGradesIds() []uint32 {
+	if x != nil {
+		return x.GradesIds
+	}
+	return nil
+}
+
+type MatrixEditRequest_Params struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	VacancyId uint32   `protobuf:"varint,1,opt,name=vacancyId,proto3" json:"vacancyId,omitempty"`
+	GradesIds []uint32 `protobuf:"varint,2,rep,packed,name=grades_ids,json=gradesIds,proto3" json:"grades_ids,omitempty"`
+}
+
+func (x *MatrixEditRequest_Params) Reset() {
+	*x = MatrixEditRequest_Params{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_sup_adm_service_proto_msgTypes[27]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *MatrixEditRequest_Params) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MatrixEditRequest_Params) ProtoMessage() {}
+
+func (x *MatrixEditRequest_Params) ProtoReflect() protoreflect.Message {
+	mi := &file_sup_adm_service_proto_msgTypes[27]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MatrixEditRequest_Params.ProtoReflect.Descriptor instead.
+func (*MatrixEditRequest_Params) Descriptor() ([]byte, []int) {
+	return file_sup_adm_service_proto_rawDescGZIP(), []int{17, 0}
+}
+
+func (x *MatrixEditRequest_Params) GetVacancyId() uint32 {
+	if x != nil {
+		return x.VacancyId
+	}
+	return 0
+}
+
+func (x *MatrixEditRequest_Params) GetGradesIds() []uint32 {
+	if x != nil {
+		return x.GradesIds
+	}
+	return nil
 }
 
 var File_sup_adm_service_proto protoreflect.FileDescriptor
 
 var file_sup_adm_service_proto_rawDesc = []byte{
 	0x0a, 0x15, 0x73, 0x75, 0x70, 0x5f, 0x61, 0x64, 0x6d, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63,
-	0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x05, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2a, 0x4d,
-	0x0a, 0x09, 0x43, 0x6c, 0x61, 0x73, 0x73, 0x45, 0x6e, 0x75, 0x6d, 0x12, 0x0b, 0x0a, 0x07, 0x64,
-	0x65, 0x66, 0x61, 0x75, 0x6c, 0x74, 0x10, 0x00, 0x12, 0x09, 0x0a, 0x05, 0x75, 0x73, 0x75, 0x61,
-	0x6c, 0x10, 0x01, 0x12, 0x08, 0x0a, 0x04, 0x72, 0x61, 0x72, 0x65, 0x10, 0x02, 0x12, 0x0a, 0x0a,
-	0x06, 0x6c, 0x65, 0x67, 0x65, 0x6e, 0x64, 0x10, 0x03, 0x12, 0x08, 0x0a, 0x04, 0x65, 0x70, 0x69,
-	0x63, 0x10, 0x04, 0x12, 0x08, 0x0a, 0x04, 0x6d, 0x65, 0x67, 0x61, 0x10, 0x05, 0x42, 0x23, 0x5a,
-	0x21, 0x64, 0x61, 0x6d, 0x6d, 0x6e, 0x2d, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2f,
-	0x61, 0x70, 0x69, 0x2f, 0x73, 0x75, 0x70, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x2f, 0x70, 0x72, 0x6f,
-	0x74, 0x6f, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x05, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x0e,
+	0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x1c,
+	0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x61, 0x6e, 0x6e, 0x6f, 0x74,
+	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x2e, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x63, 0x2d, 0x67, 0x65, 0x6e, 0x2d, 0x6f, 0x70, 0x65, 0x6e, 0x61, 0x70, 0x69,
+	0x76, 0x32, 0x2f, 0x6f, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x2f, 0x61, 0x6e, 0x6e, 0x6f, 0x74,
+	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x1b, 0x67, 0x6f,
+	0x6f, 0x67, 0x6c, 0x65, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2f, 0x65, 0x6d,
+	0x70, 0x74, 0x79, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x20, 0x67, 0x6f, 0x6f, 0x67, 0x6c,
+	0x65, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2f, 0x66, 0x69, 0x65, 0x6c, 0x64,
+	0x5f, 0x6d, 0x61, 0x73, 0x6b, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x3a, 0x0a, 0x12, 0x53,
+	0x6b, 0x69, 0x6c, 0x6c, 0x73, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x12, 0x24, 0x0a, 0x06, 0x73, 0x6b, 0x69, 0x6c, 0x6c, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28,
+	0x0b, 0x32, 0x0c, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x6b, 0x69, 0x6c, 0x6c, 0x52,
+	0x06, 0x73, 0x6b, 0x69, 0x6c, 0x6c, 0x73, 0x22, 0x68, 0x0a, 0x0f, 0x53, 0x6b, 0x69, 0x6c, 0x6c,
+	0x41, 0x64, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x35, 0x0a, 0x06, 0x70, 0x61,
+	0x72, 0x61, 0x6d, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1d, 0x2e, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x2e, 0x53, 0x6b, 0x69, 0x6c, 0x6c, 0x41, 0x64, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x2e, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x52, 0x06, 0x70, 0x61, 0x72, 0x61, 0x6d,
+	0x73, 0x1a, 0x1e, 0x0a, 0x06, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x12, 0x14, 0x0a, 0x05, 0x6c,
+	0x61, 0x62, 0x65, 0x6c, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x6c, 0x61, 0x62, 0x65,
+	0x6c, 0x22, 0xb6, 0x01, 0x0a, 0x10, 0x53, 0x6b, 0x69, 0x6c, 0x6c, 0x45, 0x64, 0x69, 0x74, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x0d, 0x52, 0x02, 0x69, 0x64, 0x12, 0x36, 0x0a, 0x06, 0x70, 0x61, 0x72, 0x61, 0x6d, 0x73,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1e, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53,
+	0x6b, 0x69, 0x6c, 0x6c, 0x45, 0x64, 0x69, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x2e,
+	0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x52, 0x06, 0x70, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x12, 0x3a,
+	0x0a, 0x0a, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x4d, 0x61, 0x73, 0x6b, 0x18, 0x03, 0x20, 0x01,
+	0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x62, 0x75, 0x66, 0x2e, 0x46, 0x69, 0x65, 0x6c, 0x64, 0x4d, 0x61, 0x73, 0x6b, 0x52, 0x0a,
+	0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x4d, 0x61, 0x73, 0x6b, 0x1a, 0x1e, 0x0a, 0x06, 0x50, 0x61,
+	0x72, 0x61, 0x6d, 0x73, 0x12, 0x14, 0x0a, 0x05, 0x6c, 0x61, 0x62, 0x65, 0x6c, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x05, 0x6c, 0x61, 0x62, 0x65, 0x6c, 0x22, 0x24, 0x0a, 0x12, 0x53, 0x6b,
+	0x69, 0x6c, 0x6c, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x02, 0x69, 0x64,
+	0x22, 0x25, 0x0a, 0x13, 0x53, 0x6b, 0x69, 0x6c, 0x6c, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x0d, 0x52, 0x02, 0x69, 0x64, 0x22, 0x45, 0x0a, 0x15, 0x56, 0x61, 0x63, 0x61, 0x6e,
+	0x63, 0x69, 0x65, 0x73, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x12, 0x2c, 0x0a, 0x09, 0x76, 0x61, 0x63, 0x61, 0x6e, 0x63, 0x69, 0x65, 0x73, 0x18, 0x01, 0x20,
+	0x03, 0x28, 0x0b, 0x32, 0x0e, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x56, 0x61, 0x63, 0x61,
+	0x6e, 0x63, 0x79, 0x52, 0x09, 0x76, 0x61, 0x63, 0x61, 0x6e, 0x63, 0x69, 0x65, 0x73, 0x22, 0x6c,
+	0x0a, 0x11, 0x56, 0x61, 0x63, 0x61, 0x6e, 0x63, 0x79, 0x41, 0x64, 0x64, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x12, 0x37, 0x0a, 0x06, 0x70, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x1f, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x56, 0x61, 0x63, 0x61,
+	0x6e, 0x63, 0x79, 0x41, 0x64, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x2e, 0x50, 0x61,
+	0x72, 0x61, 0x6d, 0x73, 0x52, 0x06, 0x70, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x1a, 0x1e, 0x0a, 0x06,
+	0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x12, 0x14, 0x0a, 0x05, 0x6c, 0x61, 0x62, 0x65, 0x6c, 0x18,
+	0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x6c, 0x61, 0x62, 0x65, 0x6c, 0x22, 0xba, 0x01, 0x0a,
+	0x12, 0x56, 0x61, 0x63, 0x61, 0x6e, 0x63, 0x79, 0x45, 0x64, 0x69, 0x74, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0d, 0x52,
+	0x02, 0x69, 0x64, 0x12, 0x38, 0x0a, 0x06, 0x70, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x20, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x56, 0x61, 0x63, 0x61,
+	0x6e, 0x63, 0x79, 0x45, 0x64, 0x69, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x2e, 0x50,
+	0x61, 0x72, 0x61, 0x6d, 0x73, 0x52, 0x06, 0x70, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x12, 0x3a, 0x0a,
+	0x0a, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x4d, 0x61, 0x73, 0x6b, 0x18, 0x03, 0x20, 0x01, 0x28,
+	0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x62, 0x75, 0x66, 0x2e, 0x46, 0x69, 0x65, 0x6c, 0x64, 0x4d, 0x61, 0x73, 0x6b, 0x52, 0x0a, 0x75,
+	0x70, 0x64, 0x61, 0x74, 0x65, 0x4d, 0x61, 0x73, 0x6b, 0x1a, 0x1e, 0x0a, 0x06, 0x50, 0x61, 0x72,
+	0x61, 0x6d, 0x73, 0x12, 0x14, 0x0a, 0x05, 0x6c, 0x61, 0x62, 0x65, 0x6c, 0x18, 0x02, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x05, 0x6c, 0x61, 0x62, 0x65, 0x6c, 0x22, 0x26, 0x0a, 0x14, 0x56, 0x61, 0x63,
+	0x61, 0x6e, 0x63, 0x79, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x02, 0x69,
+	0x64, 0x22, 0x27, 0x0a, 0x15, 0x56, 0x61, 0x63, 0x61, 0x6e, 0x63, 0x79, 0x52, 0x65, 0x6d, 0x6f,
+	0x76, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x02, 0x69, 0x64, 0x22, 0x3a, 0x0a, 0x12, 0x47, 0x72,
+	0x61, 0x64, 0x65, 0x73, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x12, 0x24, 0x0a, 0x06, 0x67, 0x72, 0x61, 0x64, 0x65, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b,
+	0x32, 0x0c, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x47, 0x72, 0x61, 0x64, 0x65, 0x52, 0x06,
+	0x67, 0x72, 0x61, 0x64, 0x65, 0x73, 0x22, 0xd1, 0x01, 0x0a, 0x0f, 0x47, 0x72, 0x61, 0x64, 0x65,
+	0x41, 0x64, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x35, 0x0a, 0x06, 0x70, 0x61,
+	0x72, 0x61, 0x6d, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1d, 0x2e, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x2e, 0x47, 0x72, 0x61, 0x64, 0x65, 0x41, 0x64, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x2e, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x52, 0x06, 0x70, 0x61, 0x72, 0x61, 0x6d,
+	0x73, 0x1a, 0x86, 0x01, 0x0a, 0x06, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x12, 0x14, 0x0a, 0x05,
+	0x6c, 0x61, 0x62, 0x65, 0x6c, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x6c, 0x61, 0x62,
+	0x65, 0x6c, 0x12, 0x20, 0x0a, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f,
+	0x6e, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70,
+	0x74, 0x69, 0x6f, 0x6e, 0x12, 0x1e, 0x0a, 0x0a, 0x65, 0x78, 0x70, 0x65, 0x72, 0x69, 0x65, 0x6e,
+	0x63, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x0a, 0x65, 0x78, 0x70, 0x65, 0x72, 0x69,
+	0x65, 0x6e, 0x63, 0x65, 0x12, 0x24, 0x0a, 0x0d, 0x6e, 0x65, 0x65, 0x64, 0x73, 0x41, 0x70, 0x70,
+	0x72, 0x6f, 0x76, 0x61, 0x6c, 0x18, 0x05, 0x20, 0x01, 0x28, 0x08, 0x52, 0x0d, 0x6e, 0x65, 0x65,
+	0x64, 0x73, 0x41, 0x70, 0x70, 0x72, 0x6f, 0x76, 0x61, 0x6c, 0x22, 0x9f, 0x02, 0x0a, 0x10, 0x47,
+	0x72, 0x61, 0x64, 0x65, 0x45, 0x64, 0x69, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12,
+	0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x02, 0x69, 0x64, 0x12,
+	0x36, 0x0a, 0x06, 0x70, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32,
+	0x1e, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x47, 0x72, 0x61, 0x64, 0x65, 0x45, 0x64, 0x69,
+	0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x2e, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x52,
+	0x06, 0x70, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x12, 0x3a, 0x0a, 0x0a, 0x75, 0x70, 0x64, 0x61, 0x74,
+	0x65, 0x4d, 0x61, 0x73, 0x6b, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f,
+	0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x46, 0x69,
+	0x65, 0x6c, 0x64, 0x4d, 0x61, 0x73, 0x6b, 0x52, 0x0a, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x4d,
+	0x61, 0x73, 0x6b, 0x1a, 0x86, 0x01, 0x0a, 0x06, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x12, 0x14,
+	0x0a, 0x05, 0x6c, 0x61, 0x62, 0x65, 0x6c, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x6c,
+	0x61, 0x62, 0x65, 0x6c, 0x12, 0x20, 0x0a, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74,
+	0x69, 0x6f, 0x6e, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72,
+	0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x1e, 0x0a, 0x0a, 0x65, 0x78, 0x70, 0x65, 0x72, 0x69,
+	0x65, 0x6e, 0x63, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x0a, 0x65, 0x78, 0x70, 0x65,
+	0x72, 0x69, 0x65, 0x6e, 0x63, 0x65, 0x12, 0x24, 0x0a, 0x0d, 0x6e, 0x65, 0x65, 0x64, 0x73, 0x41,
+	0x70, 0x70, 0x72, 0x6f, 0x76, 0x61, 0x6c, 0x18, 0x05, 0x20, 0x01, 0x28, 0x08, 0x52, 0x0d, 0x6e,
+	0x65, 0x65, 0x64, 0x73, 0x41, 0x70, 0x70, 0x72, 0x6f, 0x76, 0x61, 0x6c, 0x22, 0x24, 0x0a, 0x12,
+	0x47, 0x72, 0x61, 0x64, 0x65, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x02,
+	0x69, 0x64, 0x22, 0x25, 0x0a, 0x13, 0x47, 0x72, 0x61, 0x64, 0x65, 0x52, 0x65, 0x6d, 0x6f, 0x76,
+	0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x02, 0x69, 0x64, 0x22, 0x4d, 0x0a, 0x12, 0x4d, 0x61, 0x74,
+	0x72, 0x69, 0x78, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
+	0x37, 0x0a, 0x0f, 0x67, 0x72, 0x61, 0x64, 0x65, 0x50, 0x72, 0x6f, 0x67, 0x72, 0x65, 0x73, 0x73,
+	0x65, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0d, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x2e, 0x4d, 0x61, 0x74, 0x72, 0x69, 0x78, 0x52, 0x0f, 0x67, 0x72, 0x61, 0x64, 0x65, 0x50, 0x72,
+	0x6f, 0x67, 0x72, 0x65, 0x73, 0x73, 0x65, 0x73, 0x22, 0x91, 0x01, 0x0a, 0x10, 0x4d, 0x61, 0x74,
+	0x72, 0x69, 0x78, 0x41, 0x64, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x36, 0x0a,
+	0x06, 0x70, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1e, 0x2e,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x4d, 0x61, 0x74, 0x72, 0x69, 0x78, 0x41, 0x64, 0x64, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x2e, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x52, 0x06, 0x70,
+	0x61, 0x72, 0x61, 0x6d, 0x73, 0x1a, 0x45, 0x0a, 0x06, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x12,
+	0x1c, 0x0a, 0x09, 0x76, 0x61, 0x63, 0x61, 0x6e, 0x63, 0x79, 0x49, 0x64, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x0d, 0x52, 0x09, 0x76, 0x61, 0x63, 0x61, 0x6e, 0x63, 0x79, 0x49, 0x64, 0x12, 0x1d, 0x0a,
+	0x0a, 0x67, 0x72, 0x61, 0x64, 0x65, 0x73, 0x5f, 0x69, 0x64, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28,
+	0x0d, 0x52, 0x09, 0x67, 0x72, 0x61, 0x64, 0x65, 0x73, 0x49, 0x64, 0x73, 0x22, 0xdf, 0x01, 0x0a,
+	0x11, 0x4d, 0x61, 0x74, 0x72, 0x69, 0x78, 0x45, 0x64, 0x69, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x02,
+	0x69, 0x64, 0x12, 0x37, 0x0a, 0x06, 0x70, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x18, 0x02, 0x20, 0x01,
+	0x28, 0x0b, 0x32, 0x1f, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x4d, 0x61, 0x74, 0x72, 0x69,
+	0x78, 0x45, 0x64, 0x69, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x2e, 0x50, 0x61, 0x72,
+	0x61, 0x6d, 0x73, 0x52, 0x06, 0x70, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x12, 0x3a, 0x0a, 0x0a, 0x75,
+	0x70, 0x64, 0x61, 0x74, 0x65, 0x4d, 0x61, 0x73, 0x6b, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32,
+	0x1a, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75,
+	0x66, 0x2e, 0x46, 0x69, 0x65, 0x6c, 0x64, 0x4d, 0x61, 0x73, 0x6b, 0x52, 0x0a, 0x75, 0x70, 0x64,
+	0x61, 0x74, 0x65, 0x4d, 0x61, 0x73, 0x6b, 0x1a, 0x45, 0x0a, 0x06, 0x50, 0x61, 0x72, 0x61, 0x6d,
+	0x73, 0x12, 0x1c, 0x0a, 0x09, 0x76, 0x61, 0x63, 0x61, 0x6e, 0x63, 0x79, 0x49, 0x64, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x0d, 0x52, 0x09, 0x76, 0x61, 0x63, 0x61, 0x6e, 0x63, 0x79, 0x49, 0x64, 0x12,
+	0x1d, 0x0a, 0x0a, 0x67, 0x72, 0x61, 0x64, 0x65, 0x73, 0x5f, 0x69, 0x64, 0x73, 0x18, 0x02, 0x20,
+	0x03, 0x28, 0x0d, 0x52, 0x09, 0x67, 0x72, 0x61, 0x64, 0x65, 0x73, 0x49, 0x64, 0x73, 0x22, 0x25,
+	0x0a, 0x13, 0x4d, 0x61, 0x74, 0x72, 0x69, 0x78, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x0d, 0x52, 0x02, 0x69, 0x64, 0x22, 0x26, 0x0a, 0x14, 0x4d, 0x61, 0x74, 0x72, 0x69, 0x78, 0x52,
+	0x65, 0x6d, 0x6f, 0x76, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x0e, 0x0a,
+	0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x02, 0x69, 0x64, 0x32, 0xe4, 0x0c,
+	0x0a, 0x10, 0x59, 0x6f, 0x75, 0x72, 0x41, 0x64, 0x6d, 0x69, 0x6e, 0x53, 0x65, 0x72, 0x76, 0x69,
+	0x63, 0x65, 0x12, 0x55, 0x0a, 0x0a, 0x53, 0x6b, 0x69, 0x6c, 0x6c, 0x73, 0x4c, 0x69, 0x73, 0x74,
+	0x12, 0x16, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62,
+	0x75, 0x66, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x1a, 0x19, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x2e, 0x53, 0x6b, 0x69, 0x6c, 0x6c, 0x73, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x22, 0x14, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x0e, 0x12, 0x0c, 0x2f, 0x64, 0x61,
+	0x74, 0x61, 0x2f, 0x73, 0x6b, 0x69, 0x6c, 0x6c, 0x73, 0x12, 0x52, 0x0a, 0x08, 0x53, 0x6b, 0x69,
+	0x6c, 0x6c, 0x41, 0x64, 0x64, 0x12, 0x16, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x6b,
+	0x69, 0x6c, 0x6c, 0x41, 0x64, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x0c, 0x2e,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x6b, 0x69, 0x6c, 0x6c, 0x22, 0x20, 0x82, 0xd3, 0xe4,
+	0x93, 0x02, 0x1a, 0x22, 0x10, 0x2f, 0x64, 0x61, 0x74, 0x61, 0x2f, 0x73, 0x6b, 0x69, 0x6c, 0x6c,
+	0x73, 0x2f, 0x61, 0x64, 0x64, 0x3a, 0x06, 0x70, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x12, 0x55, 0x0a,
+	0x09, 0x53, 0x6b, 0x69, 0x6c, 0x6c, 0x45, 0x64, 0x69, 0x74, 0x12, 0x17, 0x2e, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x2e, 0x53, 0x6b, 0x69, 0x6c, 0x6c, 0x45, 0x64, 0x69, 0x74, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x1a, 0x0c, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x6b, 0x69, 0x6c,
+	0x6c, 0x22, 0x21, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x1b, 0x32, 0x11, 0x2f, 0x64, 0x61, 0x74, 0x61,
+	0x2f, 0x73, 0x6b, 0x69, 0x6c, 0x6c, 0x73, 0x2f, 0x65, 0x64, 0x69, 0x74, 0x3a, 0x06, 0x70, 0x61,
+	0x72, 0x61, 0x6d, 0x73, 0x12, 0x66, 0x0a, 0x0b, 0x53, 0x6b, 0x69, 0x6c, 0x6c, 0x52, 0x65, 0x6d,
+	0x6f, 0x76, 0x65, 0x12, 0x19, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x6b, 0x69, 0x6c,
+	0x6c, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1a,
+	0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x6b, 0x69, 0x6c, 0x6c, 0x52, 0x65, 0x6d, 0x6f,
+	0x76, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x20, 0x82, 0xd3, 0xe4, 0x93,
+	0x02, 0x1a, 0x2a, 0x18, 0x2f, 0x64, 0x61, 0x74, 0x61, 0x2f, 0x73, 0x6b, 0x69, 0x6c, 0x6c, 0x73,
+	0x2f, 0x7b, 0x69, 0x64, 0x7d, 0x2f, 0x72, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x12, 0x5e, 0x0a, 0x0d,
+	0x56, 0x61, 0x63, 0x61, 0x6e, 0x63, 0x69, 0x65, 0x73, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x16, 0x2e,
+	0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e,
+	0x45, 0x6d, 0x70, 0x74, 0x79, 0x1a, 0x1c, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x56, 0x61,
+	0x63, 0x61, 0x6e, 0x63, 0x69, 0x65, 0x73, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x22, 0x17, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x11, 0x12, 0x0f, 0x2f, 0x64, 0x61,
+	0x74, 0x61, 0x2f, 0x76, 0x61, 0x63, 0x61, 0x6e, 0x63, 0x69, 0x65, 0x73, 0x12, 0x5b, 0x0a, 0x0a,
+	0x56, 0x61, 0x63, 0x61, 0x6e, 0x63, 0x79, 0x41, 0x64, 0x64, 0x12, 0x18, 0x2e, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x2e, 0x56, 0x61, 0x63, 0x61, 0x6e, 0x63, 0x79, 0x41, 0x64, 0x64, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x1a, 0x0e, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x56, 0x61, 0x63,
+	0x61, 0x6e, 0x63, 0x79, 0x22, 0x23, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x1d, 0x22, 0x13, 0x2f, 0x64,
+	0x61, 0x74, 0x61, 0x2f, 0x76, 0x61, 0x63, 0x61, 0x6e, 0x63, 0x69, 0x65, 0x73, 0x2f, 0x61, 0x64,
+	0x64, 0x3a, 0x06, 0x70, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x12, 0x63, 0x0a, 0x0b, 0x56, 0x61, 0x63,
+	0x61, 0x6e, 0x63, 0x79, 0x45, 0x64, 0x69, 0x74, 0x12, 0x19, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x2e, 0x56, 0x61, 0x63, 0x61, 0x6e, 0x63, 0x79, 0x45, 0x64, 0x69, 0x74, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x1a, 0x0e, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x56, 0x61, 0x63, 0x61,
+	0x6e, 0x63, 0x79, 0x22, 0x29, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x23, 0x32, 0x19, 0x2f, 0x64, 0x61,
+	0x74, 0x61, 0x2f, 0x76, 0x61, 0x63, 0x61, 0x6e, 0x63, 0x69, 0x65, 0x73, 0x2f, 0x7b, 0x69, 0x64,
+	0x7d, 0x2f, 0x65, 0x64, 0x69, 0x74, 0x3a, 0x06, 0x70, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x12, 0x6f,
+	0x0a, 0x0d, 0x56, 0x61, 0x63, 0x61, 0x6e, 0x63, 0x79, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x12,
+	0x1b, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x56, 0x61, 0x63, 0x61, 0x6e, 0x63, 0x79, 0x52,
+	0x65, 0x6d, 0x6f, 0x76, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1c, 0x2e, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x56, 0x61, 0x63, 0x61, 0x6e, 0x63, 0x79, 0x52, 0x65, 0x6d, 0x6f,
+	0x76, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x23, 0x82, 0xd3, 0xe4, 0x93,
+	0x02, 0x1d, 0x2a, 0x1b, 0x2f, 0x64, 0x61, 0x74, 0x61, 0x2f, 0x76, 0x61, 0x63, 0x61, 0x6e, 0x63,
+	0x69, 0x65, 0x73, 0x2f, 0x7b, 0x69, 0x64, 0x7d, 0x2f, 0x72, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x12,
+	0x5d, 0x0a, 0x0a, 0x4d, 0x61, 0x74, 0x72, 0x69, 0x78, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x16, 0x2e,
+	0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e,
+	0x45, 0x6d, 0x70, 0x74, 0x79, 0x1a, 0x19, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x4d, 0x61,
+	0x74, 0x72, 0x69, 0x78, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x22, 0x1c, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x16, 0x12, 0x14, 0x2f, 0x64, 0x61, 0x74, 0x61, 0x2f,
+	0x67, 0x72, 0x61, 0x64, 0x65, 0x2d, 0x70, 0x72, 0x6f, 0x67, 0x72, 0x65, 0x73, 0x73, 0x12, 0x5d,
+	0x0a, 0x09, 0x4d, 0x61, 0x74, 0x72, 0x69, 0x78, 0x41, 0x64, 0x64, 0x12, 0x17, 0x2e, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x2e, 0x4d, 0x61, 0x74, 0x72, 0x69, 0x78, 0x41, 0x64, 0x64, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x1a, 0x0d, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x4d, 0x61, 0x74,
+	0x72, 0x69, 0x78, 0x22, 0x28, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x22, 0x22, 0x18, 0x2f, 0x64, 0x61,
+	0x74, 0x61, 0x2f, 0x67, 0x72, 0x61, 0x64, 0x65, 0x2d, 0x70, 0x72, 0x6f, 0x67, 0x72, 0x65, 0x73,
+	0x73, 0x2f, 0x61, 0x64, 0x64, 0x3a, 0x06, 0x70, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x12, 0x65, 0x0a,
+	0x0a, 0x4d, 0x61, 0x74, 0x72, 0x69, 0x78, 0x45, 0x64, 0x69, 0x74, 0x12, 0x18, 0x2e, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x2e, 0x4d, 0x61, 0x74, 0x72, 0x69, 0x78, 0x45, 0x64, 0x69, 0x74, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x0d, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x4d, 0x61,
+	0x74, 0x72, 0x69, 0x78, 0x22, 0x2e, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x28, 0x32, 0x1e, 0x2f, 0x64,
+	0x61, 0x74, 0x61, 0x2f, 0x67, 0x72, 0x61, 0x64, 0x65, 0x2d, 0x70, 0x72, 0x6f, 0x67, 0x72, 0x65,
+	0x73, 0x73, 0x2f, 0x7b, 0x69, 0x64, 0x7d, 0x2f, 0x65, 0x64, 0x69, 0x74, 0x3a, 0x06, 0x70, 0x61,
+	0x72, 0x61, 0x6d, 0x73, 0x12, 0x71, 0x0a, 0x0c, 0x4d, 0x61, 0x74, 0x72, 0x69, 0x78, 0x52, 0x65,
+	0x6d, 0x6f, 0x76, 0x65, 0x12, 0x1a, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x4d, 0x61, 0x74,
+	0x72, 0x69, 0x78, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x1a, 0x1b, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x4d, 0x61, 0x74, 0x72, 0x69, 0x78, 0x52,
+	0x65, 0x6d, 0x6f, 0x76, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x28, 0x82,
+	0xd3, 0xe4, 0x93, 0x02, 0x22, 0x2a, 0x20, 0x2f, 0x64, 0x61, 0x74, 0x61, 0x2f, 0x67, 0x72, 0x61,
+	0x64, 0x65, 0x2d, 0x70, 0x72, 0x6f, 0x67, 0x72, 0x65, 0x73, 0x73, 0x2f, 0x7b, 0x69, 0x64, 0x7d,
+	0x2f, 0x72, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x12, 0x55, 0x0a, 0x0a, 0x47, 0x72, 0x61, 0x64, 0x65,
+	0x73, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x16, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x1a, 0x19, 0x2e,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x47, 0x72, 0x61, 0x64, 0x65, 0x73, 0x4c, 0x69, 0x73, 0x74,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x14, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x0e,
+	0x12, 0x0c, 0x2f, 0x64, 0x61, 0x74, 0x61, 0x2f, 0x67, 0x72, 0x61, 0x64, 0x65, 0x73, 0x12, 0x52,
+	0x0a, 0x08, 0x47, 0x72, 0x61, 0x64, 0x65, 0x41, 0x64, 0x64, 0x12, 0x16, 0x2e, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x2e, 0x47, 0x72, 0x61, 0x64, 0x65, 0x41, 0x64, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x1a, 0x0c, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x47, 0x72, 0x61, 0x64, 0x65,
+	0x22, 0x20, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x1a, 0x22, 0x10, 0x2f, 0x64, 0x61, 0x74, 0x61, 0x2f,
+	0x67, 0x72, 0x61, 0x64, 0x65, 0x73, 0x2f, 0x61, 0x64, 0x64, 0x3a, 0x06, 0x70, 0x61, 0x72, 0x61,
+	0x6d, 0x73, 0x12, 0x5a, 0x0a, 0x09, 0x47, 0x72, 0x61, 0x64, 0x65, 0x45, 0x64, 0x69, 0x74, 0x12,
+	0x17, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x47, 0x72, 0x61, 0x64, 0x65, 0x45, 0x64, 0x69,
+	0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x0c, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x2e, 0x47, 0x72, 0x61, 0x64, 0x65, 0x22, 0x26, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x20, 0x32, 0x16,
+	0x2f, 0x64, 0x61, 0x74, 0x61, 0x2f, 0x67, 0x72, 0x61, 0x64, 0x65, 0x73, 0x2f, 0x7b, 0x69, 0x64,
+	0x7d, 0x2f, 0x65, 0x64, 0x69, 0x74, 0x3a, 0x06, 0x70, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x12, 0x66,
+	0x0a, 0x0b, 0x47, 0x72, 0x61, 0x64, 0x65, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x12, 0x19, 0x2e,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x47, 0x72, 0x61, 0x64, 0x65, 0x52, 0x65, 0x6d, 0x6f, 0x76,
+	0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1a, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x2e, 0x47, 0x72, 0x61, 0x64, 0x65, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x22, 0x20, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x1a, 0x2a, 0x18, 0x2f, 0x64,
+	0x61, 0x74, 0x61, 0x2f, 0x67, 0x72, 0x61, 0x64, 0x65, 0x73, 0x2f, 0x7b, 0x69, 0x64, 0x7d, 0x2f,
+	0x72, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x12, 0x4c, 0x0a, 0x07, 0x44, 0x61, 0x74, 0x61, 0x4c, 0x69,
+	0x62, 0x12, 0x16, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x62, 0x75, 0x66, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x1a, 0x16, 0x2e, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x2e, 0x44, 0x61, 0x74, 0x61, 0x4c, 0x69, 0x62, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x22, 0x11, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x0b, 0x12, 0x09, 0x2f, 0x64, 0x61, 0x74, 0x61,
+	0x2f, 0x6c, 0x69, 0x62, 0x42, 0x41, 0x5a, 0x21, 0x64, 0x61, 0x6d, 0x6d, 0x6e, 0x2d, 0x73, 0x65,
+	0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x73, 0x75, 0x70, 0x61, 0x64,
+	0x6d, 0x69, 0x6e, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x92, 0x41, 0x1b, 0x1a, 0x19, 0x61, 0x70,
+	0x69, 0x2e, 0x64, 0x61, 0x6d, 0x6e, 0x6e, 0x2d, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73,
+	0x2e, 0x6f, 0x6e, 0x6c, 0x69, 0x6e, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -105,16 +1732,100 @@ func file_sup_adm_service_proto_rawDescGZIP() []byte {
 	return file_sup_adm_service_proto_rawDescData
 }
 
-var file_sup_adm_service_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
+var file_sup_adm_service_proto_msgTypes = make([]protoimpl.MessageInfo, 28)
 var file_sup_adm_service_proto_goTypes = []interface{}{
-	(ClassEnum)(0), // 0: proto.ClassEnum
+	(*SkillsListResponse)(nil),        // 0: proto.SkillsListResponse
+	(*SkillAddRequest)(nil),           // 1: proto.SkillAddRequest
+	(*SkillEditRequest)(nil),          // 2: proto.SkillEditRequest
+	(*SkillRemoveRequest)(nil),        // 3: proto.SkillRemoveRequest
+	(*SkillRemoveResponse)(nil),       // 4: proto.SkillRemoveResponse
+	(*VacanciesListResponse)(nil),     // 5: proto.VacanciesListResponse
+	(*VacancyAddRequest)(nil),         // 6: proto.VacancyAddRequest
+	(*VacancyEditRequest)(nil),        // 7: proto.VacancyEditRequest
+	(*VacancyRemoveRequest)(nil),      // 8: proto.VacancyRemoveRequest
+	(*VacancyRemoveResponse)(nil),     // 9: proto.VacancyRemoveResponse
+	(*GradesListResponse)(nil),        // 10: proto.GradesListResponse
+	(*GradeAddRequest)(nil),           // 11: proto.GradeAddRequest
+	(*GradeEditRequest)(nil),          // 12: proto.GradeEditRequest
+	(*GradeRemoveRequest)(nil),        // 13: proto.GradeRemoveRequest
+	(*GradeRemoveResponse)(nil),       // 14: proto.GradeRemoveResponse
+	(*MatrixListResponse)(nil),        // 15: proto.MatrixListResponse
+	(*MatrixAddRequest)(nil),          // 16: proto.MatrixAddRequest
+	(*MatrixEditRequest)(nil),         // 17: proto.MatrixEditRequest
+	(*MatrixRemoveRequest)(nil),       // 18: proto.MatrixRemoveRequest
+	(*MatrixRemoveResponse)(nil),      // 19: proto.MatrixRemoveResponse
+	(*SkillAddRequest_Params)(nil),    // 20: proto.SkillAddRequest.Params
+	(*SkillEditRequest_Params)(nil),   // 21: proto.SkillEditRequest.Params
+	(*VacancyAddRequest_Params)(nil),  // 22: proto.VacancyAddRequest.Params
+	(*VacancyEditRequest_Params)(nil), // 23: proto.VacancyEditRequest.Params
+	(*GradeAddRequest_Params)(nil),    // 24: proto.GradeAddRequest.Params
+	(*GradeEditRequest_Params)(nil),   // 25: proto.GradeEditRequest.Params
+	(*MatrixAddRequest_Params)(nil),   // 26: proto.MatrixAddRequest.Params
+	(*MatrixEditRequest_Params)(nil),  // 27: proto.MatrixEditRequest.Params
+	(*Skill)(nil),                     // 28: proto.Skill
+	(*fieldmaskpb.FieldMask)(nil),     // 29: google.protobuf.FieldMask
+	(*Vacancy)(nil),                   // 30: proto.Vacancy
+	(*Grade)(nil),                     // 31: proto.Grade
+	(*Matrix)(nil),                    // 32: proto.Matrix
+	(*emptypb.Empty)(nil),             // 33: google.protobuf.Empty
+	(*DataLibResponse)(nil),           // 34: proto.DataLibResponse
 }
 var file_sup_adm_service_proto_depIdxs = []int32{
-	0, // [0:0] is the sub-list for method output_type
-	0, // [0:0] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	28, // 0: proto.SkillsListResponse.skills:type_name -> proto.Skill
+	20, // 1: proto.SkillAddRequest.params:type_name -> proto.SkillAddRequest.Params
+	21, // 2: proto.SkillEditRequest.params:type_name -> proto.SkillEditRequest.Params
+	29, // 3: proto.SkillEditRequest.updateMask:type_name -> google.protobuf.FieldMask
+	30, // 4: proto.VacanciesListResponse.vacancies:type_name -> proto.Vacancy
+	22, // 5: proto.VacancyAddRequest.params:type_name -> proto.VacancyAddRequest.Params
+	23, // 6: proto.VacancyEditRequest.params:type_name -> proto.VacancyEditRequest.Params
+	29, // 7: proto.VacancyEditRequest.updateMask:type_name -> google.protobuf.FieldMask
+	31, // 8: proto.GradesListResponse.grades:type_name -> proto.Grade
+	24, // 9: proto.GradeAddRequest.params:type_name -> proto.GradeAddRequest.Params
+	25, // 10: proto.GradeEditRequest.params:type_name -> proto.GradeEditRequest.Params
+	29, // 11: proto.GradeEditRequest.updateMask:type_name -> google.protobuf.FieldMask
+	32, // 12: proto.MatrixListResponse.gradeProgresses:type_name -> proto.Matrix
+	26, // 13: proto.MatrixAddRequest.params:type_name -> proto.MatrixAddRequest.Params
+	27, // 14: proto.MatrixEditRequest.params:type_name -> proto.MatrixEditRequest.Params
+	29, // 15: proto.MatrixEditRequest.updateMask:type_name -> google.protobuf.FieldMask
+	33, // 16: proto.YourAdminService.SkillsList:input_type -> google.protobuf.Empty
+	1,  // 17: proto.YourAdminService.SkillAdd:input_type -> proto.SkillAddRequest
+	2,  // 18: proto.YourAdminService.SkillEdit:input_type -> proto.SkillEditRequest
+	3,  // 19: proto.YourAdminService.SkillRemove:input_type -> proto.SkillRemoveRequest
+	33, // 20: proto.YourAdminService.VacanciesList:input_type -> google.protobuf.Empty
+	6,  // 21: proto.YourAdminService.VacancyAdd:input_type -> proto.VacancyAddRequest
+	7,  // 22: proto.YourAdminService.VacancyEdit:input_type -> proto.VacancyEditRequest
+	8,  // 23: proto.YourAdminService.VacancyRemove:input_type -> proto.VacancyRemoveRequest
+	33, // 24: proto.YourAdminService.MatrixList:input_type -> google.protobuf.Empty
+	16, // 25: proto.YourAdminService.MatrixAdd:input_type -> proto.MatrixAddRequest
+	17, // 26: proto.YourAdminService.MatrixEdit:input_type -> proto.MatrixEditRequest
+	18, // 27: proto.YourAdminService.MatrixRemove:input_type -> proto.MatrixRemoveRequest
+	33, // 28: proto.YourAdminService.GradesList:input_type -> google.protobuf.Empty
+	11, // 29: proto.YourAdminService.GradeAdd:input_type -> proto.GradeAddRequest
+	12, // 30: proto.YourAdminService.GradeEdit:input_type -> proto.GradeEditRequest
+	13, // 31: proto.YourAdminService.GradeRemove:input_type -> proto.GradeRemoveRequest
+	33, // 32: proto.YourAdminService.DataLib:input_type -> google.protobuf.Empty
+	0,  // 33: proto.YourAdminService.SkillsList:output_type -> proto.SkillsListResponse
+	28, // 34: proto.YourAdminService.SkillAdd:output_type -> proto.Skill
+	28, // 35: proto.YourAdminService.SkillEdit:output_type -> proto.Skill
+	4,  // 36: proto.YourAdminService.SkillRemove:output_type -> proto.SkillRemoveResponse
+	5,  // 37: proto.YourAdminService.VacanciesList:output_type -> proto.VacanciesListResponse
+	30, // 38: proto.YourAdminService.VacancyAdd:output_type -> proto.Vacancy
+	30, // 39: proto.YourAdminService.VacancyEdit:output_type -> proto.Vacancy
+	9,  // 40: proto.YourAdminService.VacancyRemove:output_type -> proto.VacancyRemoveResponse
+	15, // 41: proto.YourAdminService.MatrixList:output_type -> proto.MatrixListResponse
+	32, // 42: proto.YourAdminService.MatrixAdd:output_type -> proto.Matrix
+	32, // 43: proto.YourAdminService.MatrixEdit:output_type -> proto.Matrix
+	19, // 44: proto.YourAdminService.MatrixRemove:output_type -> proto.MatrixRemoveResponse
+	10, // 45: proto.YourAdminService.GradesList:output_type -> proto.GradesListResponse
+	31, // 46: proto.YourAdminService.GradeAdd:output_type -> proto.Grade
+	31, // 47: proto.YourAdminService.GradeEdit:output_type -> proto.Grade
+	14, // 48: proto.YourAdminService.GradeRemove:output_type -> proto.GradeRemoveResponse
+	34, // 49: proto.YourAdminService.DataLib:output_type -> proto.DataLibResponse
+	33, // [33:50] is the sub-list for method output_type
+	16, // [16:33] is the sub-list for method input_type
+	16, // [16:16] is the sub-list for extension type_name
+	16, // [16:16] is the sub-list for extension extendee
+	0,  // [0:16] is the sub-list for field type_name
 }
 
 func init() { file_sup_adm_service_proto_init() }
@@ -122,19 +1833,358 @@ func file_sup_adm_service_proto_init() {
 	if File_sup_adm_service_proto != nil {
 		return
 	}
+	file_entities_proto_init()
+	if !protoimpl.UnsafeEnabled {
+		file_sup_adm_service_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SkillsListResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_sup_adm_service_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SkillAddRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_sup_adm_service_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SkillEditRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_sup_adm_service_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SkillRemoveRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_sup_adm_service_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SkillRemoveResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_sup_adm_service_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*VacanciesListResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_sup_adm_service_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*VacancyAddRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_sup_adm_service_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*VacancyEditRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_sup_adm_service_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*VacancyRemoveRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_sup_adm_service_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*VacancyRemoveResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_sup_adm_service_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GradesListResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_sup_adm_service_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GradeAddRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_sup_adm_service_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GradeEditRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_sup_adm_service_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GradeRemoveRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_sup_adm_service_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GradeRemoveResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_sup_adm_service_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*MatrixListResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_sup_adm_service_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*MatrixAddRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_sup_adm_service_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*MatrixEditRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_sup_adm_service_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*MatrixRemoveRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_sup_adm_service_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*MatrixRemoveResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_sup_adm_service_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SkillAddRequest_Params); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_sup_adm_service_proto_msgTypes[21].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SkillEditRequest_Params); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_sup_adm_service_proto_msgTypes[22].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*VacancyAddRequest_Params); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_sup_adm_service_proto_msgTypes[23].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*VacancyEditRequest_Params); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_sup_adm_service_proto_msgTypes[24].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GradeAddRequest_Params); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_sup_adm_service_proto_msgTypes[25].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GradeEditRequest_Params); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_sup_adm_service_proto_msgTypes[26].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*MatrixAddRequest_Params); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_sup_adm_service_proto_msgTypes[27].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*MatrixEditRequest_Params); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_sup_adm_service_proto_rawDesc,
-			NumEnums:      1,
-			NumMessages:   0,
+			NumEnums:      0,
+			NumMessages:   28,
 			NumExtensions: 0,
-			NumServices:   0,
+			NumServices:   1,
 		},
 		GoTypes:           file_sup_adm_service_proto_goTypes,
 		DependencyIndexes: file_sup_adm_service_proto_depIdxs,
-		EnumInfos:         file_sup_adm_service_proto_enumTypes,
+		MessageInfos:      file_sup_adm_service_proto_msgTypes,
 	}.Build()
 	File_sup_adm_service_proto = out.File
 	file_sup_adm_service_proto_rawDesc = nil

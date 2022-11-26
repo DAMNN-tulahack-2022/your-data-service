@@ -4,14 +4,1007 @@
     "title": "sup_adm_service.proto",
     "version": "version not set"
   },
+  "tags": [
+    {
+      "name": "YourAdminService"
+    }
+  ],
+  "host": "api.damnn-services.online",
   "consumes": [
     "application/json"
   ],
   "produces": [
     "application/json"
   ],
-  "paths": {},
+  "paths": {
+    "/data/grade-progress": {
+      "get": {
+        "operationId": "YourAdminService_MatrixList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoMatrixListResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "YourAdminService"
+        ]
+      }
+    },
+    "/data/grade-progress/add": {
+      "post": {
+        "operationId": "YourAdminService_MatrixAdd",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoMatrix"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "params",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoMatrixAddRequestParams"
+            }
+          }
+        ],
+        "tags": [
+          "YourAdminService"
+        ]
+      }
+    },
+    "/data/grade-progress/{id}/edit": {
+      "patch": {
+        "operationId": "YourAdminService_MatrixEdit",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoMatrix"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "params",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoMatrixEditRequestParams"
+            }
+          },
+          {
+            "name": "updateMask",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "YourAdminService"
+        ]
+      }
+    },
+    "/data/grade-progress/{id}/remove": {
+      "delete": {
+        "operationId": "YourAdminService_MatrixRemove",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoMatrixRemoveResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "YourAdminService"
+        ]
+      }
+    },
+    "/data/grades": {
+      "get": {
+        "operationId": "YourAdminService_GradesList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoGradesListResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "YourAdminService"
+        ]
+      }
+    },
+    "/data/grades/add": {
+      "post": {
+        "operationId": "YourAdminService_GradeAdd",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoGrade"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "params",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoGradeAddRequestParams"
+            }
+          }
+        ],
+        "tags": [
+          "YourAdminService"
+        ]
+      }
+    },
+    "/data/grades/{id}/edit": {
+      "patch": {
+        "operationId": "YourAdminService_GradeEdit",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoGrade"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "params",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoGradeEditRequestParams"
+            }
+          },
+          {
+            "name": "updateMask",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "YourAdminService"
+        ]
+      }
+    },
+    "/data/grades/{id}/remove": {
+      "delete": {
+        "operationId": "YourAdminService_GradeRemove",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoGradeRemoveResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "YourAdminService"
+        ]
+      }
+    },
+    "/data/lib": {
+      "get": {
+        "operationId": "YourAdminService_DataLib",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoDataLibResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "YourAdminService"
+        ]
+      }
+    },
+    "/data/skills": {
+      "get": {
+        "operationId": "YourAdminService_SkillsList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoSkillsListResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "YourAdminService"
+        ]
+      }
+    },
+    "/data/skills/add": {
+      "post": {
+        "operationId": "YourAdminService_SkillAdd",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoSkill"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "params",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoSkillAddRequestParams"
+            }
+          }
+        ],
+        "tags": [
+          "YourAdminService"
+        ]
+      }
+    },
+    "/data/skills/edit": {
+      "patch": {
+        "operationId": "YourAdminService_SkillEdit",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoSkill"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "params",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoSkillEditRequestParams"
+            }
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "updateMask",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "YourAdminService"
+        ]
+      }
+    },
+    "/data/skills/{id}/remove": {
+      "delete": {
+        "operationId": "YourAdminService_SkillRemove",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoSkillRemoveResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "YourAdminService"
+        ]
+      }
+    },
+    "/data/vacancies": {
+      "get": {
+        "operationId": "YourAdminService_VacanciesList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoVacanciesListResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "YourAdminService"
+        ]
+      }
+    },
+    "/data/vacancies/add": {
+      "post": {
+        "operationId": "YourAdminService_VacancyAdd",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoVacancy"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "params",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoVacancyAddRequestParams"
+            }
+          }
+        ],
+        "tags": [
+          "YourAdminService"
+        ]
+      }
+    },
+    "/data/vacancies/{id}/edit": {
+      "patch": {
+        "operationId": "YourAdminService_VacancyEdit",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoVacancy"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "params",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoVacancyEditRequestParams"
+            }
+          },
+          {
+            "name": "updateMask",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "YourAdminService"
+        ]
+      }
+    },
+    "/data/vacancies/{id}/remove": {
+      "delete": {
+        "operationId": "YourAdminService_VacancyRemove",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoVacancyRemoveResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "YourAdminService"
+        ]
+      }
+    }
+  },
   "definitions": {
+    "protoArticle": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "authorId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "totalViewed": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "skillsIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "experience": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "protoDataLibResponse": {
+      "type": "object",
+      "properties": {
+        "users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protoUser"
+          }
+        },
+        "projects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protoProject"
+          }
+        },
+        "skills": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protoSkill"
+          }
+        },
+        "vacanciesProgresses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protoVacancyProgress"
+          }
+        },
+        "vacancies": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protoVacancy"
+          }
+        },
+        "articles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protoArticle"
+          }
+        },
+        "grades": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protoGrade"
+          }
+        }
+      }
+    },
+    "protoGrade": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "label": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "experience": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "needsApproval": {
+          "type": "boolean"
+        }
+      }
+    },
+    "protoGradeAddRequestParams": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "experience": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "needsApproval": {
+          "type": "boolean"
+        }
+      }
+    },
+    "protoGradeEditRequestParams": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "experience": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "needsApproval": {
+          "type": "boolean"
+        }
+      }
+    },
+    "protoGradeRemoveResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "protoGradesListResponse": {
+      "type": "object",
+      "properties": {
+        "grades": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protoGrade"
+          }
+        }
+      }
+    },
+    "protoMatrix": {
+      "type": "object",
+      "properties": {
+        "vacancyId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "gradesIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "protoMatrixAddRequestParams": {
+      "type": "object",
+      "properties": {
+        "vacancyId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "gradesIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      }
+    },
+    "protoMatrixEditRequestParams": {
+      "type": "object",
+      "properties": {
+        "vacancyId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "gradesIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      }
+    },
+    "protoMatrixListResponse": {
+      "type": "object",
+      "properties": {
+        "gradeProgresses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protoMatrix"
+          }
+        }
+      }
+    },
+    "protoMatrixRemoveResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "protoProject": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "teamleadId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "skillsIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "userIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "experience": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "protoSkill": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "label": {
+          "type": "string"
+        }
+      }
+    },
+    "protoSkillAddRequestParams": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string"
+        }
+      }
+    },
+    "protoSkillEditRequestParams": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string"
+        }
+      }
+    },
+    "protoSkillRemoveResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "protoSkillsListResponse": {
+      "type": "object",
+      "properties": {
+        "skills": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protoSkill"
+          }
+        }
+      }
+    },
+    "protoUser": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "login": {
+          "type": "string"
+        },
+        "viewedPostsIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "middleName": {
+          "type": "string"
+        },
+        "avatarUri": {
+          "type": "string"
+        },
+        "curentProjectId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "completedProjectIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "skillsIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "role": {
+          "type": "string"
+        },
+        "totalExperience": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "vacancyId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "protoVacanciesListResponse": {
+      "type": "object",
+      "properties": {
+        "vacancies": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protoVacancy"
+          }
+        }
+      }
+    },
+    "protoVacancy": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "label": {
+          "type": "string"
+        }
+      }
+    },
+    "protoVacancyAddRequestParams": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string"
+        }
+      }
+    },
+    "protoVacancyEditRequestParams": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string"
+        }
+      }
+    },
+    "protoVacancyProgress": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "vacancyId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "gradeIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      }
+    },
+    "protoVacancyRemoveResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
     "protobufAny": {
       "type": "object",
       "properties": {

@@ -15,8 +15,7 @@ type GenericEnvAppConfig struct {
 	MaxIdleTime     int    `env:"MAX_IDLE_TIME"`
 	ConnMaxLifetime int    `env:"CONN_MAX_LIFETIME"`
 
-	CacheHost                 string `env:"CACHE_HOST"`
-	CachePort                 string `env:"CACHE_PORT"`
+	CacheAddr                 string `env:"CACHE_ADDR"`
 	CachePassword             string `env:"CACHE_PASSWORD"`
 	CacheDbCursor             int    `env:"CACHE_DB_CURSOR"`
 	CacheConnectionMaxRetries int    `env:"CACHE_CONN_MAX_RETRIES"`

@@ -1,35 +1,31 @@
 package tools
 
 import (
-	"time"
-
 	"github.com/jmoiron/sqlx"
 )
 
-type DBConnectionPool struct {
-	log *YourLogger
-
-	Db *sqlx.DB
-}
+var DB *sqlx.DB
 
 const (
 	_postgresGenericDriver = "postgres"
 )
 
-
-
-func BeginDbInstance(config *GenericEnvAppConfig, log *YourLogger) (db *DBConnectionPool, err error) {
-	db = new(DBConnectionPool)
-	db.log = log
-	db.Db, err = sqlx.Connect(_postgresGenericDriver, config.DbSoruceDSN)
+func BeginDbInstance(config *GenericEnvAppConfig, log *YourLogger) (err error) {
+	log.log.Print(config.DbSoruceDSN)
+	db, err := sqlx.Connect("postgres", config.DbSoruceDSN)
 	if err != nil {
-		return 
+		return
 	}
 
-	db.Db.SetMaxIdleConns(config.MaxIdleConns)
-	db.Db.SetMaxOpenConns(config.MaxOpenConns)
-	db.Db.SetConnMaxIdleTime(time.Duration(config.MaxIdleTime) * time.Second)
-	db.Db.SetConnMaxLifetime(time.Duration(config.ConnMaxLifetime) * time.Second)
+	DB = db 
+	log.log.Print("db is init")
+	log.log.Print("db is nil - [%v]", db == nil)
 
-	return
+	return err
+}
+
+func Close() {
+	if err := DB.Close(); err != nil {
+		return
+	}
 }
