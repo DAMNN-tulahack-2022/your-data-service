@@ -39,8 +39,11 @@ type YourAdminServiceClient interface {
 	GradeAdd(ctx context.Context, in *GradeAddRequest, opts ...grpc.CallOption) (*Grade, error)
 	GradeEdit(ctx context.Context, in *GradeEditRequest, opts ...grpc.CallOption) (*Grade, error)
 	GradeRemove(ctx context.Context, in *GradeRemoveRequest, opts ...grpc.CallOption) (*GradeRemoveResponse, error)
-	DataLib(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*DataLibResponse, error)
 	ProjectAdd(ctx context.Context, in *ProjectAddRequest, opts ...grpc.CallOption) (*Project, error)
+	DataLib(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*DataLibResponse, error)
+	UpUserExp(ctx context.Context, in *UpUserExpRequest, opts ...grpc.CallOption) (*User, error)
+	ReadPost(ctx context.Context, in *ReadPostRequest, opts ...grpc.CallOption) (*ReadPostResponse, error)
+	PublicPost(ctx context.Context, in *PublicPostRequest, opts ...grpc.CallOption) (*PublicPostResponse, error)
 }
 
 type yourAdminServiceClient struct {
@@ -195,6 +198,15 @@ func (c *yourAdminServiceClient) GradeRemove(ctx context.Context, in *GradeRemov
 	return out, nil
 }
 
+func (c *yourAdminServiceClient) ProjectAdd(ctx context.Context, in *ProjectAddRequest, opts ...grpc.CallOption) (*Project, error) {
+	out := new(Project)
+	err := c.cc.Invoke(ctx, "/proto.YourAdminService/ProjectAdd", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *yourAdminServiceClient) DataLib(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*DataLibResponse, error) {
 	out := new(DataLibResponse)
 	err := c.cc.Invoke(ctx, "/proto.YourAdminService/DataLib", in, out, opts...)
@@ -204,9 +216,27 @@ func (c *yourAdminServiceClient) DataLib(ctx context.Context, in *emptypb.Empty,
 	return out, nil
 }
 
-func (c *yourAdminServiceClient) ProjectAdd(ctx context.Context, in *ProjectAddRequest, opts ...grpc.CallOption) (*Project, error) {
-	out := new(Project)
-	err := c.cc.Invoke(ctx, "/proto.YourAdminService/ProjectAdd", in, out, opts...)
+func (c *yourAdminServiceClient) UpUserExp(ctx context.Context, in *UpUserExpRequest, opts ...grpc.CallOption) (*User, error) {
+	out := new(User)
+	err := c.cc.Invoke(ctx, "/proto.YourAdminService/UpUserExp", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *yourAdminServiceClient) ReadPost(ctx context.Context, in *ReadPostRequest, opts ...grpc.CallOption) (*ReadPostResponse, error) {
+	out := new(ReadPostResponse)
+	err := c.cc.Invoke(ctx, "/proto.YourAdminService/ReadPost", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *yourAdminServiceClient) PublicPost(ctx context.Context, in *PublicPostRequest, opts ...grpc.CallOption) (*PublicPostResponse, error) {
+	out := new(PublicPostResponse)
+	err := c.cc.Invoke(ctx, "/proto.YourAdminService/PublicPost", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -233,8 +263,11 @@ type YourAdminServiceServer interface {
 	GradeAdd(context.Context, *GradeAddRequest) (*Grade, error)
 	GradeEdit(context.Context, *GradeEditRequest) (*Grade, error)
 	GradeRemove(context.Context, *GradeRemoveRequest) (*GradeRemoveResponse, error)
-	DataLib(context.Context, *emptypb.Empty) (*DataLibResponse, error)
 	ProjectAdd(context.Context, *ProjectAddRequest) (*Project, error)
+	DataLib(context.Context, *emptypb.Empty) (*DataLibResponse, error)
+	UpUserExp(context.Context, *UpUserExpRequest) (*User, error)
+	ReadPost(context.Context, *ReadPostRequest) (*ReadPostResponse, error)
+	PublicPost(context.Context, *PublicPostRequest) (*PublicPostResponse, error)
 	mustEmbedUnimplementedYourAdminServiceServer()
 }
 
@@ -290,11 +323,20 @@ func (UnimplementedYourAdminServiceServer) GradeEdit(context.Context, *GradeEdit
 func (UnimplementedYourAdminServiceServer) GradeRemove(context.Context, *GradeRemoveRequest) (*GradeRemoveResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GradeRemove not implemented")
 }
+func (UnimplementedYourAdminServiceServer) ProjectAdd(context.Context, *ProjectAddRequest) (*Project, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ProjectAdd not implemented")
+}
 func (UnimplementedYourAdminServiceServer) DataLib(context.Context, *emptypb.Empty) (*DataLibResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DataLib not implemented")
 }
-func (UnimplementedYourAdminServiceServer) ProjectAdd(context.Context, *ProjectAddRequest) (*Project, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ProjectAdd not implemented")
+func (UnimplementedYourAdminServiceServer) UpUserExp(context.Context, *UpUserExpRequest) (*User, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpUserExp not implemented")
+}
+func (UnimplementedYourAdminServiceServer) ReadPost(context.Context, *ReadPostRequest) (*ReadPostResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ReadPost not implemented")
+}
+func (UnimplementedYourAdminServiceServer) PublicPost(context.Context, *PublicPostRequest) (*PublicPostResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PublicPost not implemented")
 }
 func (UnimplementedYourAdminServiceServer) mustEmbedUnimplementedYourAdminServiceServer() {}
 
@@ -597,6 +639,24 @@ func _YourAdminService_GradeRemove_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _YourAdminService_ProjectAdd_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ProjectAddRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(YourAdminServiceServer).ProjectAdd(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.YourAdminService/ProjectAdd",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(YourAdminServiceServer).ProjectAdd(ctx, req.(*ProjectAddRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _YourAdminService_DataLib_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(emptypb.Empty)
 	if err := dec(in); err != nil {
@@ -615,20 +675,56 @@ func _YourAdminService_DataLib_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
-func _YourAdminService_ProjectAdd_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ProjectAddRequest)
+func _YourAdminService_UpUserExp_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpUserExpRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(YourAdminServiceServer).ProjectAdd(ctx, in)
+		return srv.(YourAdminServiceServer).UpUserExp(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/proto.YourAdminService/ProjectAdd",
+		FullMethod: "/proto.YourAdminService/UpUserExp",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(YourAdminServiceServer).ProjectAdd(ctx, req.(*ProjectAddRequest))
+		return srv.(YourAdminServiceServer).UpUserExp(ctx, req.(*UpUserExpRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _YourAdminService_ReadPost_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReadPostRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(YourAdminServiceServer).ReadPost(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.YourAdminService/ReadPost",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(YourAdminServiceServer).ReadPost(ctx, req.(*ReadPostRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _YourAdminService_PublicPost_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PublicPostRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(YourAdminServiceServer).PublicPost(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.YourAdminService/PublicPost",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(YourAdminServiceServer).PublicPost(ctx, req.(*PublicPostRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -705,12 +801,24 @@ var YourAdminService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _YourAdminService_GradeRemove_Handler,
 		},
 		{
+			MethodName: "ProjectAdd",
+			Handler:    _YourAdminService_ProjectAdd_Handler,
+		},
+		{
 			MethodName: "DataLib",
 			Handler:    _YourAdminService_DataLib_Handler,
 		},
 		{
-			MethodName: "ProjectAdd",
-			Handler:    _YourAdminService_ProjectAdd_Handler,
+			MethodName: "UpUserExp",
+			Handler:    _YourAdminService_UpUserExp_Handler,
+		},
+		{
+			MethodName: "ReadPost",
+			Handler:    _YourAdminService_ReadPost_Handler,
+		},
+		{
+			MethodName: "PublicPost",
+			Handler:    _YourAdminService_PublicPost_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

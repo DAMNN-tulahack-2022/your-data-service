@@ -34,6 +34,14 @@ func (projects) List(ctx context.Context) ([]*Project, error) {
 }
 
 func (projects) Add(ctx context.Context, project *Project) (*Project, error) {
-	err := tools.DB.GetContext(ctx, project, addProject)
+	stmt, err := tools.DB.PrepareNamed(addProject)
+	if err != nil {
+		return nil, err
+	}
+
+	if err = stmt.GetContext(ctx, project, project); err != nil {
+		return nil, err
+	}
+
 	return project, err
 }

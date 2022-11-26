@@ -159,6 +159,34 @@ message ProjectAddRequest {
     Params params = 1; 
 }
 
+message UpUserExpRequest {
+    uint32 experience = 1;
+    uint32 userId = 2;
+} 
+
+message ReadPostRequest {
+    uint32 postId = 1;
+    uint32 userId = 2;
+} 
+
+message ReadPostResponse {
+    uint32 postId = 1;
+    uint32 userId = 2;
+}  
+
+message PublicPostRequest {
+    uint32 id  = 1;
+    string title = 2;
+    string description = 3;
+    repeated uint32 skillsIds = 4;
+
+    uint32 userId = 5;
+} 
+
+message PublicPostResponse {
+    Article post = 1;
+} 
+
 service YourAdminService {
     rpc SkillsList(google.protobuf.Empty) returns (SkillsListResponse) {
         option (google.api.http) = {
@@ -266,6 +294,12 @@ service YourAdminService {
         };
     }
 
+    rpc ProjectAdd(ProjectAddRequest) returns (Project) {
+        option (google.api.http) = {
+            post: "/data/projects/add"
+            body: "params"
+        };
+    }
 
     rpc DataLib(google.protobuf.Empty) returns (DataLibResponse) {
         option (google.api.http) = {
@@ -273,10 +307,24 @@ service YourAdminService {
         };
     }
 
-    rpc ProjectAdd(ProjectAddRequest) returns (Project) {
+    rpc UpUserExp(UpUserExpRequest) returns (User) {
         option (google.api.http) = {
-        post: "/data/projects/add"
-        body: "params"
+            post: "/data/users/up-exp"
+            body: "*"
+        };
+    }
+
+    rpc ReadPost(ReadPostRequest) returns (ReadPostResponse) {
+        option (google.api.http) = {
+            post: "/data/users/read-post"
+            body: "*"
+        };
+    }
+
+    rpc PublicPost(PublicPostRequest) returns (PublicPostResponse) {
+        option (google.api.http) = {
+            post: "/data/users/public-post"
+            body: "*"
         };
     }
 

@@ -461,6 +461,102 @@
         ]
       }
     },
+    "/data/users/public-post": {
+      "post": {
+        "operationId": "YourAdminService_PublicPost",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoPublicPostResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoPublicPostRequest"
+            }
+          }
+        ],
+        "tags": [
+          "YourAdminService"
+        ]
+      }
+    },
+    "/data/users/read-post": {
+      "post": {
+        "operationId": "YourAdminService_ReadPost",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoReadPostResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoReadPostRequest"
+            }
+          }
+        ],
+        "tags": [
+          "YourAdminService"
+        ]
+      }
+    },
+    "/data/users/up-exp": {
+      "post": {
+        "operationId": "YourAdminService_UpUserExp",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoUser"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoUpUserExpRequest"
+            }
+          }
+        ],
+        "tags": [
+          "YourAdminService"
+        ]
+      }
+    },
     "/data/vacancies": {
       "get": {
         "operationId": "YourAdminService_VacanciesList",
@@ -898,6 +994,66 @@
         }
       }
     },
+    "protoPublicPostRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "skillsIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "protoPublicPostResponse": {
+      "type": "object",
+      "properties": {
+        "post": {
+          "$ref": "#/definitions/protoArticle"
+        }
+      }
+    },
+    "protoReadPostRequest": {
+      "type": "object",
+      "properties": {
+        "postId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "protoReadPostResponse": {
+      "type": "object",
+      "properties": {
+        "postId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
     "protoSkill": {
       "type": "object",
       "properties": {
@@ -943,6 +1099,19 @@
           "items": {
             "$ref": "#/definitions/protoSkill"
           }
+        }
+      }
+    },
+    "protoUpUserExpRequest": {
+      "type": "object",
+      "properties": {
+        "experience": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int64"
         }
       }
     },
