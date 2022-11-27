@@ -9,15 +9,18 @@ import (
 type users struct{}
 
 const (
-	getUsers      = `select * from your_user`
-	getUser       = `select * from your_user where id = $1`
-	updateUserExp = `update your_user set total_exp=total_exp + $1 where id = $2 returning *`
-	updateUserRole = `update your_user role=$1 where id = $2 returning *`
+	getUsers          = `select * from your_user`
+	getUser           = `select * from your_user where id = $1`
+	updateUserExp     = `update your_user set total_exp=total_exp + $1 where id = $2 returning *`
+	updateUserRole    = `update your_user set role=$1 where id = $2 returning *`
+	updateUserVacancy = `update your_user set vacancy_id=$1
+	 						where id = $2
+						 		returning *`
 
 	updateUserViewedMetrics = `update your_user
 									set total_exp=:total_exp,
 									viewed_ids=:viewed_ids
-										where id=:id`
+					 					where id=:id`
 )
 
 type User struct {
@@ -57,6 +60,12 @@ func (users) UpExp(ctx context.Context, id, exp uint32) (*User, error) {
 func (users) ChangeRole(ctx context.Context, id uint32, role string) (*User, error) {
 	result := new(User)
 	err := tools.DB.GetContext(ctx, result, updateUserRole, role, id)
+	return result, err
+}
+
+func (users) AssignVacancy(ctx context.Context, id, vacancyId uint32) (*User, error) {
+	result := new(User)
+	err := tools.DB.GetContext(ctx, result, updateUserVacancy, vacancyId, id)
 	return result, err
 }
 

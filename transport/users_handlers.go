@@ -20,6 +20,7 @@ func (gp *gatewayProxy) UpUserExp(ctx context.Context, request *proto.UpUserExpR
 		Id:                  user.Id,
 		Login:               user.Login,
 		ViewedPostsIds:      user.ViewedPostIds,
+		VacancyId:           user.VacancyId,
 		FirstName:           user.FirstName,
 		LastName:            user.LastName,
 		MiddleName:          user.MiddleName,
@@ -42,6 +43,30 @@ func (gp *gatewayProxy) ChangeUserRole(ctx context.Context, request *proto.Chang
 		Id:                  user.Id,
 		Login:               user.Login,
 		ViewedPostsIds:      user.ViewedPostIds,
+		VacancyId:           user.VacancyId,
+		FirstName:           user.FirstName,
+		LastName:            user.LastName,
+		MiddleName:          user.MiddleName,
+		AvatarUrl:           user.AvaterURL,
+		CurrentProjectId:    user.CurrentProjectId,
+		CompletedProjectIds: user.CompletedProjectsIds,
+		SkillsIds:           user.SkillsIds,
+		Role:                user.Role,
+		TotalExperience:     user.TotalExp,
+	}, nil
+}
+
+func (gp *gatewayProxy) AssignVacancy(ctx context.Context, request *proto.AssignUserVacancyRequest) (*proto.User, error) {
+	user, err := repository.Users.AssignVacancy(ctx, request.GetUserId(), request.GetVacancyId())
+	if err != nil {
+		return nil, err
+	}
+
+	return &proto.User{
+		Id:                  user.Id,
+		Login:               user.Login,
+		ViewedPostsIds:      user.ViewedPostIds,
+		VacancyId:           user.VacancyId,
 		FirstName:           user.FirstName,
 		LastName:            user.LastName,
 		MiddleName:          user.MiddleName,
@@ -84,7 +109,7 @@ func (gp *gatewayProxy) ReadPost(ctx context.Context, request *proto.ReadPostReq
 	user, err := repository.Users.Get(ctx, request.GetUserId())
 	if err != nil {
 		return nil, status.Error(codes.NotFound, "errors.validation.userNotFound")
-	} 
+	}
 
 	log.Printf("%#v", user)
 

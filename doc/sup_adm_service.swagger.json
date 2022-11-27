@@ -461,6 +461,38 @@
         ]
       }
     },
+    "/data/users/assign-vacancy": {
+      "post": {
+        "operationId": "YourAdminService_AssignVacancy",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoUser"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoAssignUserVacancyRequest"
+            }
+          }
+        ],
+        "tags": [
+          "YourAdminService"
+        ]
+      }
+    },
     "/data/users/change-role": {
       "post": {
         "operationId": "YourAdminService_ChangeUserRole",
@@ -750,6 +782,19 @@
           }
         },
         "experience": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "protoAssignUserVacancyRequest": {
+      "type": "object",
+      "properties": {
+        "vacancyId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "userId": {
           "type": "integer",
           "format": "int64"
         }
