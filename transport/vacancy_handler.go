@@ -5,6 +5,7 @@ import (
 
 	"github.com/damnn/tulahack/your-supadmin-service/gen/proto"
 	"github.com/damnn/tulahack/your-supadmin-service/repository"
+	"github.com/rs/zerolog/log"
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 
@@ -44,7 +45,11 @@ func (gp *gatewayProxy) VacancyEdit(ctx context.Context, request *proto.VacancyE
 }
 
 func (gp *gatewayProxy) VacancyRemove(ctx context.Context, request *proto.VacancyRemoveRequest) (*proto.VacancyRemoveResponse, error) {
-	response := &proto.VacancyRemoveResponse{}
+	log.Print(request.Id)
+	err := repository.Vacancies.Remove(ctx, request.GetId())
+	if err != nil {
+		return nil, err
+	}
 
-	return response, nil
+	return &proto.VacancyRemoveResponse{Id: request.Id}, nil
 }

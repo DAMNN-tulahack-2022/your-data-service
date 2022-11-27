@@ -44,6 +44,7 @@ type YourAdminServiceClient interface {
 	UpUserExp(ctx context.Context, in *UpUserExpRequest, opts ...grpc.CallOption) (*User, error)
 	ChangeUserRole(ctx context.Context, in *ChangeUserRequest, opts ...grpc.CallOption) (*User, error)
 	AssignVacancy(ctx context.Context, in *AssignUserVacancyRequest, opts ...grpc.CallOption) (*User, error)
+	AssignProject(ctx context.Context, in *AssignUserProjectRequest, opts ...grpc.CallOption) (*User, error)
 	ReadPost(ctx context.Context, in *ReadPostRequest, opts ...grpc.CallOption) (*ReadPostResponse, error)
 	PublicPost(ctx context.Context, in *PublicPostRequest, opts ...grpc.CallOption) (*PublicPostResponse, error)
 }
@@ -245,6 +246,15 @@ func (c *yourAdminServiceClient) AssignVacancy(ctx context.Context, in *AssignUs
 	return out, nil
 }
 
+func (c *yourAdminServiceClient) AssignProject(ctx context.Context, in *AssignUserProjectRequest, opts ...grpc.CallOption) (*User, error) {
+	out := new(User)
+	err := c.cc.Invoke(ctx, "/proto.YourAdminService/AssignProject", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *yourAdminServiceClient) ReadPost(ctx context.Context, in *ReadPostRequest, opts ...grpc.CallOption) (*ReadPostResponse, error) {
 	out := new(ReadPostResponse)
 	err := c.cc.Invoke(ctx, "/proto.YourAdminService/ReadPost", in, out, opts...)
@@ -288,6 +298,7 @@ type YourAdminServiceServer interface {
 	UpUserExp(context.Context, *UpUserExpRequest) (*User, error)
 	ChangeUserRole(context.Context, *ChangeUserRequest) (*User, error)
 	AssignVacancy(context.Context, *AssignUserVacancyRequest) (*User, error)
+	AssignProject(context.Context, *AssignUserProjectRequest) (*User, error)
 	ReadPost(context.Context, *ReadPostRequest) (*ReadPostResponse, error)
 	PublicPost(context.Context, *PublicPostRequest) (*PublicPostResponse, error)
 	mustEmbedUnimplementedYourAdminServiceServer()
@@ -359,6 +370,9 @@ func (UnimplementedYourAdminServiceServer) ChangeUserRole(context.Context, *Chan
 }
 func (UnimplementedYourAdminServiceServer) AssignVacancy(context.Context, *AssignUserVacancyRequest) (*User, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AssignVacancy not implemented")
+}
+func (UnimplementedYourAdminServiceServer) AssignProject(context.Context, *AssignUserProjectRequest) (*User, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AssignProject not implemented")
 }
 func (UnimplementedYourAdminServiceServer) ReadPost(context.Context, *ReadPostRequest) (*ReadPostResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReadPost not implemented")
@@ -757,6 +771,24 @@ func _YourAdminService_AssignVacancy_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _YourAdminService_AssignProject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AssignUserProjectRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(YourAdminServiceServer).AssignProject(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.YourAdminService/AssignProject",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(YourAdminServiceServer).AssignProject(ctx, req.(*AssignUserProjectRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _YourAdminService_ReadPost_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ReadPostRequest)
 	if err := dec(in); err != nil {
@@ -883,6 +915,10 @@ var YourAdminService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AssignVacancy",
 			Handler:    _YourAdminService_AssignVacancy_Handler,
+		},
+		{
+			MethodName: "AssignProject",
+			Handler:    _YourAdminService_AssignProject_Handler,
 		},
 		{
 			MethodName: "ReadPost",

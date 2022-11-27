@@ -17,6 +17,10 @@ const (
 	 						where id = $2
 						 		returning *`
 
+	updateUserProject = `update your_user set current_project_id=$1
+ 								 where id = $2
+									 returning *`
+
 	updateUserViewedMetrics = `update your_user
 									set total_exp=:total_exp,
 									viewed_ids=:viewed_ids
@@ -66,6 +70,12 @@ func (users) ChangeRole(ctx context.Context, id uint32, role string) (*User, err
 func (users) AssignVacancy(ctx context.Context, id, vacancyId uint32) (*User, error) {
 	result := new(User)
 	err := tools.DB.GetContext(ctx, result, updateUserVacancy, vacancyId, id)
+	return result, err
+}
+
+func (users) AssignProject(ctx context.Context, tx *Transaction, id, projectId uint32) (*User, error) {
+	result := new(User)
+	err := tools.DB.GetContext(ctx, result, updateUserProject, projectId, id)
 	return result, err
 }
 

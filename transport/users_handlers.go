@@ -3,6 +3,7 @@ package transport
 import (
 	"context"
 	"log"
+	"sort"
 
 	"github.com/damnn/tulahack/your-supadmin-service/gen/proto"
 	"github.com/damnn/tulahack/your-supadmin-service/repository"
@@ -59,6 +60,66 @@ func (gp *gatewayProxy) ChangeUserRole(ctx context.Context, request *proto.Chang
 func (gp *gatewayProxy) AssignVacancy(ctx context.Context, request *proto.AssignUserVacancyRequest) (*proto.User, error) {
 	user, err := repository.Users.AssignVacancy(ctx, request.GetUserId(), request.GetVacancyId())
 	if err != nil {
+		return nil, err
+	}
+
+	return &proto.User{
+		Id:                  user.Id,
+		Login:               user.Login,
+		ViewedPostsIds:      user.ViewedPostIds,
+		VacancyId:           user.VacancyId,
+		FirstName:           user.FirstName,
+		LastName:            user.LastName,
+		MiddleName:          user.MiddleName,
+		AvatarUrl:           user.AvaterURL,
+		CurrentProjectId:    user.CurrentProjectId,
+		CompletedProjectIds: user.CompletedProjectsIds,
+		SkillsIds:           user.SkillsIds,
+		Role:                user.Role,
+		TotalExperience:     user.TotalExp,
+	}, nil
+}
+
+func (gp *gatewayProxy) AssignProject(ctx context.Context, request *proto.AssignUserProjectRequest) (*proto.User, error) {
+	tx, err := repository.BeginTx(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	project, err := repository.Projects.Get(ctx, request.GetProjectId())
+	if err != nil {
+		tx.Rollback()
+		return nil, status.Error(codes.NotFound, "errors.validation.projectNotFound")
+	}
+
+	var userIdsMap = make(map[uint32]struct{}, len(project.UserIds))
+	for _, id := range project.UserIds {
+		userIdsMap[id] = struct{}{}
+	}
+
+	if _, alreadyAssigned := userIdsMap[request.GetUserId()]; !alreadyAssigned {
+		project.UserIds = append(project.UserIds, request.GetUserId())
+	}
+
+	if len(userIdsMap) != 0 {
+		sort.SliceStable(project.UserIds, func(i, j int) bool {
+			return project.UserIds[i] < project.UserIds[j]
+		})
+	}
+
+	_, err = repository.Projects.AssignUser(ctx, tx, project)
+	if err != nil {
+		tx.Rollback()
+		return nil, status.Error(codes.NotFound, "errors.validation.projectNotFound")
+	}
+
+	user, err := repository.Users.AssignProject(ctx, tx, request.GetUserId(), request.GetProjectId())
+	if err != nil {
+		tx.Rollback()
+		return nil, status.Error(codes.NotFound, "errors.validation.userNotFound")
+	}
+
+	if err = tx.Commit(); err != nil {
 		return nil, err
 	}
 

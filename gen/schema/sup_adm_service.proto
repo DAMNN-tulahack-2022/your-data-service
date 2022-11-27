@@ -75,7 +75,6 @@ message VacancyRemoveResponse {
 }
 
 
-
 message GradesListResponse {
     repeated Grade grades = 1;
 }   
@@ -176,6 +175,11 @@ message ChangeUserRequest {
 
 message AssignUserVacancyRequest {
     uint32 vacancyId = 1;
+    uint32 userId = 2;
+} 
+
+message AssignUserProjectRequest {
+    uint32 projectId = 1;
     uint32 userId = 2;
 } 
 
@@ -334,6 +338,13 @@ service YourAdminService {
     rpc AssignVacancy(AssignUserVacancyRequest) returns (User) {
         option (google.api.http) = {
             post: "/data/users/assign-vacancy"
+            body: "*"
+        };
+    }
+
+    rpc AssignProject(AssignUserProjectRequest) returns (User) {
+        option (google.api.http) = {
+            post: "/data/users/assign-project"
             body: "*"
         };
     }

@@ -461,6 +461,38 @@
         ]
       }
     },
+    "/data/users/assign-project": {
+      "post": {
+        "operationId": "YourAdminService_AssignProject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoUser"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoAssignUserProjectRequest"
+            }
+          }
+        ],
+        "tags": [
+          "YourAdminService"
+        ]
+      }
+    },
     "/data/users/assign-vacancy": {
       "post": {
         "operationId": "YourAdminService_AssignVacancy",
@@ -782,6 +814,19 @@
           }
         },
         "experience": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "protoAssignUserProjectRequest": {
+      "type": "object",
+      "properties": {
+        "projectId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "userId": {
           "type": "integer",
           "format": "int64"
         }
