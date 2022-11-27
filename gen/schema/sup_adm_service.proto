@@ -169,6 +169,11 @@ message ReadPostRequest {
     uint32 userId = 2;
 } 
 
+message ChangeUserRequest {
+    string role = 1;
+    uint32 userId = 2;
+} 
+
 message ReadPostResponse {
     uint32 postId = 1;
     uint32 userId = 2;
@@ -310,6 +315,13 @@ service YourAdminService {
     rpc UpUserExp(UpUserExpRequest) returns (User) {
         option (google.api.http) = {
             post: "/data/users/up-exp"
+            body: "*"
+        };
+    }
+
+    rpc ChangeUserRole(ChangeUserRequest) returns (User) {
+        option (google.api.http) = {
+            post: "/data/users/change-role"
             body: "*"
         };
     }

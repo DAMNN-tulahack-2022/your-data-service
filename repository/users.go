@@ -9,9 +9,10 @@ import (
 type users struct{}
 
 const (
-	getUsers = `select * from your_user`
-	getUser = `select * from your_user where id = $1`
+	getUsers      = `select * from your_user`
+	getUser       = `select * from your_user where id = $1`
 	updateUserExp = `update your_user set total_exp=total_exp + $1 where id = $2 returning *`
+	updateUserRole = `update your_user role=$1 where id = $2 returning *`
 
 	updateUserViewedMetrics = `update your_user
 									set total_exp=:total_exp,
@@ -43,13 +44,19 @@ func (users) List(ctx context.Context) ([]*User, error) {
 
 func (users) Get(ctx context.Context, id uint32) (*User, error) {
 	result := new(User)
-	err := tools.DB.GetContext(ctx, result, getUsers)
+	err := tools.DB.GetContext(ctx, result, getUser, id)
 	return result, err
 }
 
 func (users) UpExp(ctx context.Context, id, exp uint32) (*User, error) {
 	result := new(User)
 	err := tools.DB.GetContext(ctx, result, updateUserExp, exp, id)
+	return result, err
+}
+
+func (users) ChangeRole(ctx context.Context, id uint32, role string) (*User, error) {
+	result := new(User)
+	err := tools.DB.GetContext(ctx, result, updateUserRole, role, id)
 	return result, err
 }
 

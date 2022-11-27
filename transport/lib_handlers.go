@@ -2,6 +2,7 @@ package transport
 
 import (
 	"context"
+	"log"
 
 	"github.com/damnn/tulahack/your-supadmin-service/gen/proto"
 	"github.com/damnn/tulahack/your-supadmin-service/repository"
@@ -66,6 +67,7 @@ func (gp *gatewayProxy) DataLib(ctx context.Context, request *emptypb.Empty) (*p
 
 		response.Users = make([]*proto.User, 0, len(users))
 		for i := range users {
+			log.Printf("%v", users[i].ViewedPostIds)
 			response.Users = append(response.Users, &proto.User{
 				Id:                  users[i].Id,
 				Login:               users[i].Login,
@@ -73,6 +75,7 @@ func (gp *gatewayProxy) DataLib(ctx context.Context, request *emptypb.Empty) (*p
 				FirstName:           users[i].FirstName,
 				LastName:            users[i].LastName,
 				MiddleName:          users[i].MiddleName,
+				VacancyId:           users[i].VacancyId,
 				AvatarUrl:           users[i].AvaterURL,
 				CurrentProjectId:    users[i].CurrentProjectId,
 				CompletedProjectIds: users[i].CompletedProjectsIds,
@@ -131,6 +134,23 @@ func (gp *gatewayProxy) DataLib(ctx context.Context, request *emptypb.Empty) (*p
 			response.Vacancies = append(response.Vacancies, &proto.Vacancy{
 				Id:    vacancies[i].Id,
 				Label: vacancies[i].Label,
+			})
+		}
+
+		return nil
+	})
+
+	g.Go(func() error {
+		skills, err := repository.Skills.List(ctx)
+		if err != nil {
+			return status.Error(codes.Internal, "errors.common.internal: "+err.Error())
+		}
+
+		response.Skills = make([]*proto.Skill, 0, len(skills))
+		for i := range skills {
+			response.Skills = append(response.Skills, &proto.Skill{
+				Id:    skills[i].Id,
+				Label: skills[i].Label,
 			})
 		}
 

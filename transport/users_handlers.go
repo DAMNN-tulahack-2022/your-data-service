@@ -2,6 +2,7 @@ package transport
 
 import (
 	"context"
+	"log"
 
 	"github.com/damnn/tulahack/your-supadmin-service/gen/proto"
 	"github.com/damnn/tulahack/your-supadmin-service/repository"
@@ -11,6 +12,28 @@ import (
 
 func (gp *gatewayProxy) UpUserExp(ctx context.Context, request *proto.UpUserExpRequest) (*proto.User, error) {
 	user, err := repository.Users.UpExp(ctx, request.GetUserId(), request.GetExperience())
+	if err != nil {
+		return nil, err
+	}
+
+	return &proto.User{
+		Id:                  user.Id,
+		Login:               user.Login,
+		ViewedPostsIds:      user.ViewedPostIds,
+		FirstName:           user.FirstName,
+		LastName:            user.LastName,
+		MiddleName:          user.MiddleName,
+		AvatarUrl:           user.AvaterURL,
+		CurrentProjectId:    user.CurrentProjectId,
+		CompletedProjectIds: user.CompletedProjectsIds,
+		SkillsIds:           user.SkillsIds,
+		Role:                user.Role,
+		TotalExperience:     user.TotalExp,
+	}, nil
+}
+
+func (gp *gatewayProxy) ChangeUserRole(ctx context.Context, request *proto.ChangeUserRequest) (*proto.User, error) {
+	user, err := repository.Users.ChangeRole(ctx, request.GetUserId(), request.GetRole())
 	if err != nil {
 		return nil, err
 	}
@@ -61,7 +84,9 @@ func (gp *gatewayProxy) ReadPost(ctx context.Context, request *proto.ReadPostReq
 	user, err := repository.Users.Get(ctx, request.GetUserId())
 	if err != nil {
 		return nil, status.Error(codes.NotFound, "errors.validation.userNotFound")
-	}
+	} 
+
+	log.Printf("%#v", user)
 
 	for _, id := range user.ViewedPostIds {
 		if id == request.PostId {

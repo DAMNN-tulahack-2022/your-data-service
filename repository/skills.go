@@ -23,7 +23,7 @@ const (
 )
 
 type Skill struct {
-	Id    uint64 `db:"id"`
+	Id    uint32 `db:"id"`
 	Label string `db:"label"`
 }
 

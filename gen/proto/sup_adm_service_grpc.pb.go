@@ -42,6 +42,7 @@ type YourAdminServiceClient interface {
 	ProjectAdd(ctx context.Context, in *ProjectAddRequest, opts ...grpc.CallOption) (*Project, error)
 	DataLib(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*DataLibResponse, error)
 	UpUserExp(ctx context.Context, in *UpUserExpRequest, opts ...grpc.CallOption) (*User, error)
+	ChangeUserRole(ctx context.Context, in *ChangeUserRequest, opts ...grpc.CallOption) (*User, error)
 	ReadPost(ctx context.Context, in *ReadPostRequest, opts ...grpc.CallOption) (*ReadPostResponse, error)
 	PublicPost(ctx context.Context, in *PublicPostRequest, opts ...grpc.CallOption) (*PublicPostResponse, error)
 }
@@ -225,6 +226,15 @@ func (c *yourAdminServiceClient) UpUserExp(ctx context.Context, in *UpUserExpReq
 	return out, nil
 }
 
+func (c *yourAdminServiceClient) ChangeUserRole(ctx context.Context, in *ChangeUserRequest, opts ...grpc.CallOption) (*User, error) {
+	out := new(User)
+	err := c.cc.Invoke(ctx, "/proto.YourAdminService/ChangeUserRole", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *yourAdminServiceClient) ReadPost(ctx context.Context, in *ReadPostRequest, opts ...grpc.CallOption) (*ReadPostResponse, error) {
 	out := new(ReadPostResponse)
 	err := c.cc.Invoke(ctx, "/proto.YourAdminService/ReadPost", in, out, opts...)
@@ -266,6 +276,7 @@ type YourAdminServiceServer interface {
 	ProjectAdd(context.Context, *ProjectAddRequest) (*Project, error)
 	DataLib(context.Context, *emptypb.Empty) (*DataLibResponse, error)
 	UpUserExp(context.Context, *UpUserExpRequest) (*User, error)
+	ChangeUserRole(context.Context, *ChangeUserRequest) (*User, error)
 	ReadPost(context.Context, *ReadPostRequest) (*ReadPostResponse, error)
 	PublicPost(context.Context, *PublicPostRequest) (*PublicPostResponse, error)
 	mustEmbedUnimplementedYourAdminServiceServer()
@@ -331,6 +342,9 @@ func (UnimplementedYourAdminServiceServer) DataLib(context.Context, *emptypb.Emp
 }
 func (UnimplementedYourAdminServiceServer) UpUserExp(context.Context, *UpUserExpRequest) (*User, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpUserExp not implemented")
+}
+func (UnimplementedYourAdminServiceServer) ChangeUserRole(context.Context, *ChangeUserRequest) (*User, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ChangeUserRole not implemented")
 }
 func (UnimplementedYourAdminServiceServer) ReadPost(context.Context, *ReadPostRequest) (*ReadPostResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReadPost not implemented")
@@ -693,6 +707,24 @@ func _YourAdminService_UpUserExp_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _YourAdminService_ChangeUserRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ChangeUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(YourAdminServiceServer).ChangeUserRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.YourAdminService/ChangeUserRole",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(YourAdminServiceServer).ChangeUserRole(ctx, req.(*ChangeUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _YourAdminService_ReadPost_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ReadPostRequest)
 	if err := dec(in); err != nil {
@@ -811,6 +843,10 @@ var YourAdminService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpUserExp",
 			Handler:    _YourAdminService_UpUserExp_Handler,
+		},
+		{
+			MethodName: "ChangeUserRole",
+			Handler:    _YourAdminService_ChangeUserRole_Handler,
 		},
 		{
 			MethodName: "ReadPost",

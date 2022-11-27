@@ -461,6 +461,38 @@
         ]
       }
     },
+    "/data/users/change-role": {
+      "post": {
+        "operationId": "YourAdminService_ChangeUserRole",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoUser"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoChangeUserRequest"
+            }
+          }
+        ],
+        "tags": [
+          "YourAdminService"
+        ]
+      }
+    },
     "/data/users/public-post": {
       "post": {
         "operationId": "YourAdminService_PublicPost",
@@ -718,6 +750,18 @@
           }
         },
         "experience": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "protoChangeUserRequest": {
+      "type": "object",
+      "properties": {
+        "role": {
+          "type": "string"
+        },
+        "userId": {
           "type": "integer",
           "format": "int64"
         }
